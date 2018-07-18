@@ -1,0 +1,22 @@
+{
+  "name": "heavycar",
+  "description": "heavycar",
+  "main": "",
+  "authors": [
+    "KJY <dusrn@slogup.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/teamslogup/heavycar",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./client/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ng-fastclick": "1.0.2",
+    "angular-object-table": "^0.2.2"
+  }
+}

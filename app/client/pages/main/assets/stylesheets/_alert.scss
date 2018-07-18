@@ -1,0 +1,83 @@
+.sg-alert-dialog {
+    opacity: 0;
+    @include fade-in();
+}
+
+.sg-alert-dialog .sg-alert-dialog-container {
+    border-radius: 0;
+}
+
+.sg-alert-dialog .sg-alert-dialog-container .sg-alert-dialog-bottom .sg-alert-dialog-bottom-container {
+    button {
+        border-radius: 0;
+        font-size: 16px;
+        font-weight: 200;
+    }
+    .sg-alert-dialog-bottom-container-close-btn {
+        background-color: $light-royal-blue;
+        @media screen and (min-width: 769px) {
+            &:hover {
+                background-color: $purpley-blue;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            &:hover {
+                background-color: $light-royal-blue;
+            }
+            &:active {
+                background-color: $purpley-blue;
+            }
+        }
+    }
+    .sg-alert-dialog-bottom-container-cancel-btn {
+        background-color: $merqury;
+        color: $brownish-grey;
+        font-weight: 400;
+        @media screen and (min-width: 769px) {
+            &:hover {
+                background-color: #ddd;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            &:hover {
+                background-color: $merqury;
+            }
+            &:active {
+                background-color: #ddd;
+            }
+        }
+    }
+    .sg-alert-dialog-bottom-container-action-btn {
+        background-color: $light-royal-blue;
+        @media screen and (min-width: 769px) {
+            &:hover {
+                background-color: $purpley-blue;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            &:hover {
+                background-color: $light-royal-blue;
+            }
+            &:active {
+                background-color: $purpley-blue;
+            }
+        }
+    }
+}
+
+.sg-alert-dialog .sg-alert-dialog-container .sg-alert-dialog-body .sg-alert-dialog-body-text {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.sg-alert-dialog .sg-alert-dialog-container {
+    top: 50%;
+    margin-top: -95px;
+    @media screen and (max-width: 425px) {
+        min-width: 300px;
+    }
+}
+
+.sg-alert-dialog {
+    display: block;
+}

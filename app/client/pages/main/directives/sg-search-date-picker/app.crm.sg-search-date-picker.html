@@ -1,0 +1,22 @@
+<div class="datepicker" date-format="yyyy-MM-dd" date-min-limit="{{ startMinLimit }}" date-max-limit="{{ startMaxLimit }}">
+    <input type="text"
+           class="sg-start-date"
+           data-ng-model="sgStartDate"
+           placeholder="{{ 'startDate' | translate }}" readonly>
+    <div class="sg-date-base-icon"></div>
+    <button class="sg-search-clear"
+            type="button"
+            data-ng-if="sgStartDate"
+            data-ng-click="clearDate('sgStartDate')"></button>
+</div>
+<div class="datepicker" date-format="yyyy-MM-dd" date-min-limit="{{ endMinLimit }}" date-max-limit="{{ endMaxLimit }}">
+    <input type="text"
+           class="sg-end-date"
+           data-ng-model="sgEndDate"
+           placeholder="{{ 'endDate' | translate }}" readonly>
+    <div class="sg-date-base-icon"></div>
+    <button class="sg-search-clear"
+            type="button"
+            data-ng-if="sgEndDate"
+            data-ng-click="clearDate('sgEndDate')"></button>
+</div>

@@ -1,0 +1,105 @@
+$login-input-color-border: $bluey-grey;
+$login-input-color-border-focus: $sky-blue;
+$login-input-color-shadow: $carolina-blue;
+$login-button-color-background: $charcoal-grey;
+$login-button-color-background-hover: $almost-black;
+$login-find-pass-color: $sky-blue;
+
+#sg-login-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+  background-color: #f5f6f6;
+}
+
+#sg-login-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -220px;
+  margin-left: -240px;
+  border-radius: 3px;
+  padding: 36px 48px;
+  width: 480px;
+  height: 440px;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.13);
+  background-color: white;
+}
+
+#sg-login-logo {
+  position: relative;
+  display: block;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto;
+}
+
+label.sg-login-label {
+  margin: 20px 0 4px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #41464c;
+}
+
+div.sg-login-input-wrap {
+  position: relative;
+  border: solid 1px $login-input-color-border;
+  border-radius: 3px;
+  height: 50px;
+  overflow: hidden;
+  &.sg-focus {
+    border-color: $login-input-color-border-focus;
+    box-shadow: 0 0 2px 1px $login-input-color-shadow;
+  }
+  input.sg-login-input {
+    position: relative;
+    padding-left: 10px;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+  }
+
+  .sg-request-auth-button{
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+  }
+
+  .sg-input-phone-num-span{
+    display: inline-block;
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    font-size: 14px;
+  }
+}
+
+#sg-login-button {
+  position: relative;
+  margin-top: 36px;
+  width: 100%;
+  height: 50px;
+  background-color: $login-button-color-background;
+  font-size: 18px;
+  font-weight: 400;
+  color: white;
+}
+
+#sg-login-to-find-pass {
+  position: absolute;
+  bottom: 36px;
+  right: 48px;
+  border-bottom: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: $login-find-pass-color;
+  &:hover {
+    border-color: $login-find-pass-color;
+  }
+}

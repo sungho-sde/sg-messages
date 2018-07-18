@@ -1,0 +1,49 @@
+<section id="sg-message-create-modal-wrap" class="sg-modal-section" data-ng-controller="SenderTemplateModalCtrl">
+    <div class="sg-modal-content-part">
+        <div class="message-create-wrap">
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '제목' | translate }}</label>
+                <input type="text" class="sg-input" data-ng-model="form.title" placeholder="{{ '제목' | translate }}">
+            </div>
+
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ 'URL' | translate }}</label>
+                <input type="text" class="sg-input" data-ng-model="form.url" placeholder="{{ 'URL' | translate }}">
+            </div>
+
+
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '문자 내용' | translate }}</label>
+                <textarea class="sg-textarea"
+                          data-ng-model="form.body"
+                          data-ng-attr-placeholder="{{ '문자 내용' }}">
+
+                </textarea>
+            </div>
+
+
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '타입' | translate }}</label>
+
+                <label class="sg-label">
+                    <input type="radio" ng-model="form.a" value="SMS">  SMS
+                </label>
+                <label class="sg-label">
+                    <input type="radio" class="sg-button" ng-model="form.a" value="LMS">  LMS
+                </label>
+            </div>
+            <!--생성 버튼 (생성 후 제목/내용/코드번호가 모달창으로 나옴)-->
+
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="sg-modal-button-part">
+        <button type="button" class="sg-button sg-modal-cancel" data-ng-click="close()">
+            {{ 'close' | translate }}
+        </button>
+        <button type="button" class="sg-button sg-create sg-blue " data-ng-click="createMessage()">
+            {{ '생성' | translate }}
+        </button>
+    </div>
+</section>

@@ -1,0 +1,88 @@
+$auto-complete-color-border: $bluey-grey;
+$auto-complete-color-text: $charcoal-grey;
+$auto-complete-color-background-hover: $pale-grey;
+$auto-complete-color-text-match: $sky-blue;
+
+sg-auto-complete {
+  position: relative;
+  form.sg-search-wrap {
+    outline: none;
+    overflow: visible;
+    &:focus {
+      input.sg-search:hover {
+        & + div.sg-auto-complete {
+          display: block;
+        }
+      }
+    }
+    input.sg-search {
+      &:focus {
+        & + div.sg-auto-complete {
+          display: block;
+        }
+      }
+    }
+    div.sg-auto-complete {
+      position: absolute;
+      display: none;
+      top: 42px;
+      left: 0;
+      border: 1px solid $auto-complete-color-border;
+      padding: 2px;
+      width: 100%;
+      background-color: white;
+      z-index: 1;
+      &:hover {
+        display: block;
+      }
+      ul {
+        position: relative;
+        li {
+          position: relative;
+          padding-left: 10px;
+          padding-right: 10px;
+          cursor: pointer;
+          &:hover,
+          &.sg-active {
+            background-color: $auto-complete-color-background-hover;
+          }
+          div.sg-result-wrap {
+            position: relative;
+            @include after-clear();
+            p {
+              position: relative;
+              height: 30px;
+              line-height: 30px;
+              color: $auto-complete-color-text;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              float: left;
+              &.sg-result {
+                width: 60%;
+                font-size: 0;
+                letter-spacing: 0;
+                word-spacing: 0;
+                span {
+                  display: inline-block;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: pre;
+                  font-size: 12px;
+                  &.sg-match {
+                    color: $auto-complete-color-text-match;
+                  }
+                }
+              }
+              &.sg-field {
+                width: 40%;
+                font-size: 12px;
+                text-align: right;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

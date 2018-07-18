@@ -1,0 +1,158 @@
+$modal-content-padding: 18px;
+$modal-content-min-width: 580px;
+$modal-content-card-padding: 12px;
+$modal-content-card-color-background: white;
+
+$modal-content-color-background: $pale-grey;
+
+div.sg-modal-content {
+  ng-include {
+    position: relative;
+    display: block;
+    height: 100%;
+    overflow: visible;
+  }
+}
+
+.sg-modal-section {
+  position: relative;
+  padding-bottom: 61px;
+  height: 100%;
+  overflow: visible;
+}
+
+div.sg-modal-content-part {
+  position: relative;
+  padding: $modal-content-padding;
+  height: 100%;
+  background-color: $modal-content-color-background;
+  overflow: auto;
+  div.sg-modal-content-min-width {
+    position: relative;
+    min-width: $modal-content-min-width;
+  }
+  div.sg-modal-content-card {
+    position: relative;
+    margin-bottom: $modal-content-padding;
+    border-radius: 5px;
+    padding: $modal-content-card-padding;
+    background-color: $modal-content-card-color-background;
+    &:last-of-type {
+      margin: 0;
+    }
+    h3.sg-modal-card-title {
+      margin-top: 12px;
+      margin-bottom: 24px;
+      color: #999ca3;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    button.sg-add-line {
+      margin-top: 3px;
+    }
+  }
+  div.sg-page-tab-menu-wrap {
+    margin-top: -10px;
+    margin-bottom: 18px;
+  }
+}
+
+$modal-text-color: $slate-grey;
+
+div.sg-modal-input-wrap {
+  position: relative;
+  margin-bottom: 18px;
+  @include after-clear();
+  &:last-of-type {
+    margin-bottom: 6px;
+  }
+  label.sg-label {
+    position: relative;
+    margin: 0;
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    font-weight: bold;
+    float: left;
+    &.sg-right {
+      text-align: right;
+      float: right;
+    }
+
+  }
+
+  input.sg-input {
+    width: calc(100% - 120px);
+    max-width: 360px;
+    float: left;
+    &.sg-sub {
+      margin-right: 8px;
+      width: calc(100% - 218px);
+      max-width: 262px;
+    }
+    &.sg-half {
+      margin-right: 8px;
+      width: calc(50% - 64px);
+      max-width: 176px;
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+    &.sg-right {
+      margin: 0 8px;
+      width: 200px;
+      float: right;
+    }
+  }
+  textarea.sg-textarea {
+    width: calc(100% - 120px);
+    max-width: 360px;
+    float: left;
+    height: 170px;
+  }
+  p.sg-text {
+    position: relative;
+    padding: 8px 0;
+    width: calc(100% - 120px);
+    max-width: 360px;
+    font-size: 14px;
+    color: $modal-text-color;
+    float: left;
+    &.sg-right {
+      margin-left: 8px;
+      width: 298px;
+      text-align: right;
+      float: right;
+      span {
+        margin-left: 8px;
+        font-weight: 500;
+      }
+    }
+    span.sg-right {
+      margin-left: 8px;
+      font-weight: 500;
+    }
+  }
+}
+
+$modal-button-padding: 18px;
+$modal-button-color-border: $pale-grey-two;
+
+div.sg-modal-button-part {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-top: 1px solid $modal-button-color-border;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 12px $modal-button-padding 12px $modal-button-padding;
+  width: 100%;
+  background-color: $modal-content-color-background;
+  overflow: visible;
+  z-index: 1;
+  button.sg-modal-cancel,
+  button.sg-modal-create {
+    margin-left: 12px;
+  }
+}

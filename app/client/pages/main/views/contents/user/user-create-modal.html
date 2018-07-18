@@ -1,0 +1,52 @@
+<section id="sg-user-create-modal-wrap" class="sg-modal-section" data-ng-controller="UserCreateModalCtrl">
+    <div class="sg-modal-content-part">
+        <div class="user-create-wrap">
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '유저 ID' | translate }}</label>
+                <input type="text" class="sg-input" data-ng-model="form.id" placeholder="{{ '키 값' | translate }}">
+            </div>
+
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '이름' | translate }}</label>
+                <input type="text" class="sg-input" data-ng-model="form.name" placeholder="{{ '이름' | translate }}">
+            </div>
+
+
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '나이' | translate }}</label>
+                <input type="text" class="sg-input" data-ng-model="form.age" placeholder="{{ '나이' | translate }}">
+            </div>
+
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '성별' | translate }}</label>
+                <input type="text" class="sg-input" data-ng-model="form.gender" placeholder="{{ '성별' | translate }}">
+            </div>
+
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '시도' | translate }}</label>
+                <input type="text" class="sg-input" data-ng-model="form.address1" placeholder="{{ '시도' | translate }}">
+            </div>
+
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '시군구' | translate }}</label>
+                <input type="text" class="sg-input" data-ng-model="form.address2" placeholder="{{ '시군구' | translate }}">
+            </div>
+
+            <div class="sg-modal-input-wrap">
+                <label class="sg-label">{{ '전화번호' | translate }}</label>
+                <input type="text" class="sg-input" data-ng-model="form.tel" placeholder="{{ '전화번호' | translate }}">
+            </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="sg-modal-button-part">
+        <button type="button" class="sg-button sg-modal-cancel" data-ng-click="close()">
+            {{ 'close' | translate }}
+        </button>
+        <button type="button" class="sg-button sg-create sg-blue " data-ng-click="createUser()">
+            {{ '생성' | translate }}
+        </button>
+    </div>
+</section>

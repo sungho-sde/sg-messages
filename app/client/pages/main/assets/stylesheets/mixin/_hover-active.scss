@@ -1,0 +1,20 @@
+@mixin hover-active($min-width, $max-width, $color:null, $background-color: null, $border-color:null, $font-weight:null, $opacity: null) {
+    @media screen and (min-width: $min-width) {
+        &:hover {
+            color: $color;
+            background-color: $background-color;
+            border-color: $border-color;
+            font-weight: $font-weight;
+            opacity: $opacity;
+        }
+    }
+    @media screen and (max-width: $max-width) {
+        &:active {
+            color: $color;
+            background-color: $background-color;
+            border-color: $border-color;
+            font-weight: $font-weight;
+            opacity: $opacity;
+        }
+    }
+}

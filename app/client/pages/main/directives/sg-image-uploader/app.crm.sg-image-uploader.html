@@ -1,0 +1,48 @@
+<div class="sg-image-uploader-wrap" data-ng-class="{'sg-has-item': !sgModel || sgModel.length == 0}">
+    <div class="sg-image-upload-part"
+         data-ng-if="sgUploadFlag"
+         nv-file-drop nv-file-over sg-file-over
+         over-class="sg-file-over"
+         uploader="imageUploader">
+        <p class="sg-explain">{{ 'uploadImageExplain' | translate }}</p>
+        <input id="{{ sgId }}" class="sg-upload-input" type="file" nv-file-select uploader="imageUploader" multiple>
+    </div>
+    <div class="sg-image-item-part" data-ng-if="sgModel && sgModel.length > 0">
+        <ul class="sg-image-queue" data-ng-if="sgUploadFlag" data-as-sortable="dragControlListeners" data-ng-model="sgModel">
+            <li class="sg-image-item" data-ng-repeat="item in sgModel" data-as-sortable-item>
+                <div class="sg-image-item" data-ng-if="!item[loadingObjectName] && item[imageObjectName] && item[imageObjectName].id" data-as-sortable-item-handle>
+                    <div class="sg-image">
+                        <div class="sg-image-option">
+                            <div class="sg-image-button" data-ng-click="detailImage(item);$event.stopPropagation();">
+                                <div class="sg-icon"></div>
+                            </div>
+                            <div class="sg-image-button" data-ng-click="deleteImage($index)">
+                                <div class="sg-icon"></div>
+                            </div>
+                        </div>
+                        <img data-ng-src="{{ item[imageObjectName] | imageUrl: 'l' }}">
+                    </div>
+                </div>
+                <div class="sg-image-item" data-ng-if="item[loadingObjectName] && !item[imageObjectName]">
+                    <div class="sg-loading-wrap">
+                        <div id="{{ sgId + $index }}" class="sg-loading"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="sg-image-queue" data-ng-if="!sgUploadFlag">
+            <li class="sg-image-item" data-ng-repeat="item in sgModel">
+                <div class="sg-image-item">
+                    <div class="sg-image">
+                        <div class="sg-image-option">
+                            <div class="sg-image-button sg-whole" data-ng-click="detailImage(item);$event.stopPropagation();">
+                                <div class="sg-icon"></div>
+                            </div>
+                        </div>
+                        <img data-ng-if="item[imageObjectName] && item[imageObjectName].id" data-ng-src="{{ item[imageObjectName] | imageUrl: 'l' }}">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

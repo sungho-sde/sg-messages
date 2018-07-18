@@ -1,0 +1,77 @@
+$dialog-color-btn-base: $charcoal-grey;
+$dialog-color-btn-cancel: $pale-grey-two;
+$dialog-color-text: $charcoal-grey;
+
+.sg-alert-dialog {
+  left: 0;
+  .sg-alert-dialog-container {
+    position: absolute;
+    top: 50%;
+    margin-top: -87px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: -200px;
+  }
+}
+
+.sg-alert-dialog .sg-alert-dialog-container .sg-alert-dialog-body .sg-alert-dialog-body-text {
+  color: $dialog-color-text;
+}
+
+.sg-alert-dialog .sg-alert-dialog-container .sg-alert-dialog-bottom .sg-alert-dialog-bottom-container .sg-alert-dialog-bottom-container-close-btn {
+  background-color: $dialog-color-btn-base;
+  box-shadow: 1px 1px 2px 0 rgba(140, 140, 141, .8);
+  -webkit-transition: transform .2s, box-shadow .2s;
+  -moz-transition: transform .2s, box-shadow .2s;
+  -ms-transition: transform .2s, box-shadow .2s;
+  -o-transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, box-shadow .2s;
+  &:hover {
+    background-color: $dialog-color-btn-base;
+    box-shadow: 2px 2px 3px 0 rgba(140, 140, 141, .8);
+    -webkit-transform: translate3d(-1px, -1px, 0);
+    -moz-transform: translate3d(-1px, -1px, 0);
+    -ms-transform: translate3d(-1px, -1px, 0);
+    -o-transform: translate3d(-1px, -1px, 0);
+    transform: translate3d(-1px, -1px, 0);
+  }
+}
+
+.sg-alert-dialog .sg-alert-dialog-container .sg-alert-dialog-bottom .sg-alert-dialog-bottom-container .sg-alert-dialog-bottom-container-action-btn {
+  background-color: $dialog-color-btn-base;
+  box-shadow: 1px 1px 2px 0 rgba(140, 140, 141, .8);
+  -webkit-transition: transform .2s, box-shadow .2s;
+  -moz-transition: transform .2s, box-shadow .2s;
+  -ms-transition: transform .2s, box-shadow .2s;
+  -o-transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, box-shadow .2s;
+  &:hover {
+    background-color: $dialog-color-btn-base;
+    box-shadow: 2px 2px 3px 0 rgba(140, 140, 141, .8);
+    -webkit-transform: translate3d(-1px, -1px, 0);
+    -moz-transform: translate3d(-1px, -1px, 0);
+    -ms-transform: translate3d(-1px, -1px, 0);
+    -o-transform: translate3d(-1px, -1px, 0);
+    transform: translate3d(-1px, -1px, 0);
+  }
+}
+
+.sg-alert-dialog .sg-alert-dialog-container .sg-alert-dialog-bottom .sg-alert-dialog-bottom-container .sg-alert-dialog-bottom-container-cancel-btn {
+  color: $dialog-color-text;
+  background-color: $dialog-color-btn-cancel;
+  box-shadow: 1px 1px 2px 0 rgba(140, 140, 141, .8);
+  -webkit-transition: transform .2s, box-shadow .2s;
+  -moz-transition: transform .2s, box-shadow .2s;
+  -ms-transition: transform .2s, box-shadow .2s;
+  -o-transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, box-shadow .2s;
+  &:hover {
+    background-color: $dialog-color-btn-cancel;
+    box-shadow: 2px 2px 3px 0 rgba(140, 140, 141, .8);
+    -webkit-transform: translate3d(-1px, -1px, 0);
+    -moz-transform: translate3d(-1px, -1px, 0);
+    -ms-transform: translate3d(-1px, -1px, 0);
+    -o-transform: translate3d(-1px, -1px, 0);
+    transform: translate3d(-1px, -1px, 0);
+  }
+}

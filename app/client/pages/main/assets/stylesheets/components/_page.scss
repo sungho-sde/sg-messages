@@ -1,0 +1,52 @@
+$page-color-title: $dark;
+
+h2.sg-page-title {
+  font-size: 27px;
+  font-weight: 400;
+  color: $page-color-title;
+}
+
+$page-select-box-color-text: $dark;
+
+div.sg-page-search-wrap {
+  position: relative;
+  margin-top: 18px;
+  @include after-clear();
+  sg-auto-complete {
+    position: relative;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    display: block;
+    float: left;
+  }
+  sg-search-date-picker {
+    position: relative;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    float: left;
+  }
+  sg-select-box {
+    margin-bottom: 4px;
+    div.sg-current-item {
+      span {
+        font-weight: 500;
+        color: $page-select-box-color-text;
+      }
+    }
+  }
+}
+
+div.sg-page-items-wrap {
+  position: relative;
+  p {
+    position: relative;
+    margin-bottom: 5px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  sg-page-number {
+    margin-top: 20px;
+    text-align: right;
+  }
+}

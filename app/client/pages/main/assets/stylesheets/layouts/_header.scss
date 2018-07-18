@@ -1,0 +1,95 @@
+#sg-header-wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding-left: $g-navigation-size;
+  width: 100%;
+  height: $g-header-size;
+  background-color: white;
+  -webkit-transition: padding .3s;
+  -moz-transition: padding .3s;
+  -ms-transition: padding .3s;
+  -o-transition: padding .3s;
+  transition: padding .3s;
+  z-index: 10;
+  &.sg-nav-close {
+    padding-left: 0;
+  }
+  #sg-header {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 2px 4px 0 rgba(176, 194, 200, 0.27);
+  }
+}
+
+#sg-header-nav-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: $g-header-size;
+  height: $g-header-size;
+  opacity: .7;
+  -webkit-transition: opacity .1s;
+  -moz-transition: opacity .1s;
+  -ms-transition: opacity .1s;
+  -o-transition: opacity .1s;
+  transition: opacity .1s;
+  &:hover {
+    opacity: 1;
+  }
+  i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    margin-top: -1px;
+    border-radius: 1px;
+    width: 20px;
+    height: 2px;
+    background-color: black;
+    &:nth-of-type(1) {
+      margin-top: -6px;
+    }
+    &:nth-of-type(2) {
+      margin-top: 4px;
+    }
+  }
+}
+
+#sg-header-profile {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90px;
+  height: $g-header-size;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 0, 0, .1);
+  }
+}
+
+$header-logout-button-color-text: $charcoal-grey;
+
+#sg-header-logout-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-left: 30px;
+  width: 115px;
+  height: 100%;
+  color: $header-logout-button-color-text;
+  background-image: url(/pages/crm/assets/images/icons/ic-header-logout-24@2x.png);
+  background-repeat: no-repeat;
+  background-size: 24px;
+  background-position-x: 17px;
+  background-position-y: center;
+  opacity: .7;
+  -webkit-transition: opacity .1s;
+  -moz-transition: opacity .1s;
+  -ms-transition: opacity .1s;
+  -o-transition: opacity .1s;
+  transition: opacity .1s;
+  &:hover {
+    opacity: 1;
+  }
+}

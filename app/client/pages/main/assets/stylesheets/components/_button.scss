@@ -1,0 +1,158 @@
+$button-blue-color-background: $sky-blue;
+
+button.sg-button {
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px 0 rgba(140, 140, 141, .8);
+  -webkit-transition: transform .2s, box-shadow .2s;
+  -moz-transition: transform .2s, box-shadow .2s;
+  -ms-transition: transform .2s, box-shadow .2s;
+  -o-transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, box-shadow .2s;
+  &:hover {
+    box-shadow: 2px 2px 3px 0 rgba(140, 140, 141, .8);
+    -webkit-transform: translate3d(-1px, -1px, 0);
+    -moz-transform: translate3d(-1px, -1px, 0);
+    -ms-transform: translate3d(-1px, -1px, 0);
+    -o-transform: translate3d(-1px, -1px, 0);
+    transform: translate3d(-1px, -1px, 0);
+  }
+}
+
+
+
+
+button.sg-upload {
+  position: absolute;
+  top: 0;
+  right: 120px;
+  width: 100px;
+  height: 36px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+button.sg-create {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 36px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+button.sg-blue {
+  color: white;
+  background-color: $button-blue-color-background;
+}
+
+$button-grey-color-background: $cloudy-blue;
+
+button.sg-grey {
+  background-color: $button-grey-color-background;
+}
+
+$button-black-color-background: $charcoal-grey;
+
+button.sg-black {
+  color: $white;
+  background-color: $button-black-color-background;
+}
+
+$button-modal-cancel-color-background: $white;
+$button-modal-cancel-color-text: $charcoal-grey;
+
+button.sg-modal-cancel {
+  width: 70px;
+  height: 36px;
+  color: $button-modal-cancel-color-text;
+  background-color: $button-modal-cancel-color-background;
+  float: right;
+}
+
+$button-modal-create-color-background: $charcoal-grey;
+$button-modal-create-color-text: white;
+
+button.sg-modal-create {
+  width: 70px;
+  height: 36px;
+  color: $button-modal-create-color-text;
+  background-color: $button-modal-create-color-background;
+  box-shadow: 1px 1px 2px 0 rgba(140, 140, 141, 0.58);
+  float: right;
+}
+
+$button-modal-delete-color-background: $pale-grey-two;
+
+button.sg-modal-delete {
+  width: 70px;
+  height: 36px;
+  background-color: $button-modal-delete-color-background;
+  box-shadow: 1px 1px 2px 0 rgba(140, 140, 141, 0.58);
+  float: right;
+}
+
+$button-modal-edit-color-background: $charcoal-grey;
+
+button.sg-modal-edit {
+  position: absolute;
+  top: 18px;
+  right: 12px;
+  width: 60px;
+  height: 26px;
+  color: white;
+  background-color: $button-modal-edit-color-background;
+}
+
+$button-modal-edit-cancel-color-background: $pale-grey;
+
+button.sg-modal-edit-cancel {
+  position: absolute;
+  top: 18px;
+  right: 84px;
+  width: 60px;
+  height: 26px;
+  background-color: $button-modal-edit-cancel-color-background;
+}
+
+$button-modal-edit-update-background: $charcoal-grey;
+
+button.sg-modal-update {
+  position: absolute;
+  top: 18px;
+  right: 12px;
+  width: 60px;
+  height: 26px;
+  color: white;
+  background-color: $button-modal-edit-update-background;
+}
+
+$button-add-line-color-background: $very-light-blue;
+$button-add-line-color-background-hover: $very-light-blue-two;
+$button-add-line-color-text: $slate-grey;
+
+button.sg-add-line {
+  position: relative;
+  padding-left: 16px;
+  width: 100%;
+  height: 36px;
+  line-height: 36px;
+  color: $button-add-line-color-text;
+  background-color: $button-add-line-color-background;
+  background-image: url(/pages/main/assets/images/icons/ic-select-add-17@2x.png);
+  background-size: 17px;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: calc(50% - 32px);
+  &:hover {
+    background-color: $button-add-line-color-background-hover;
+  }
+}
+
+button.sg-download {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 130px;
+  height: 36px;
+}

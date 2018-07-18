@@ -1,0 +1,18 @@
+<ul id="{{ sgSpecifiedId }}">
+    <li class="side-nav-tab-item" data-ng-repeat="navItem in sgSideNavItem track by $index"
+
+        data-ng-class="{'sg-active' : currNav == navItem.name,
+        'tab-open' : currTab == navItem.name,
+        'fixed-tab' : fixedTab == navItem.name}"
+        data-ng-click="clickTab(navItem);">
+        <a class="li-a {{navItem.className}}" data-ng-class="{'has-child' : navItem.hasOwnProperty('child')}">
+            {{ navItem.name | translate}}</a>
+        <ul class="inner-tab-ul" data-ng-if="navItem.hasOwnProperty('child')">
+            <li data-ng-repeat="navItemChild in navItem.child track by $index"
+                data-ng-class="{'sg-active' : currNav == navItemChild.name}"
+                data-ng-click="navSelect(navItemChild.name, $event)">
+                <a class="{{navItemChild.className}}">{{navItemChild.name | translate}}</a>
+            </li>
+        </ul>
+    </li>
+</ul>

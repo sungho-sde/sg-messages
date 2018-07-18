@@ -1,0 +1,13 @@
+<div class="sg-select-box" tabindex="0">
+    <div class="sg-current-item" data-ng-class="{'sg-active': focus}" data-ng-click="view();$event.stopPropagation();">
+        <span data-ng-class="{'sg-placeholder': placeholder}">{{ currentItem }}</span>
+        <div class="sg-arrow-down"></div>
+    </div>
+    <div class="sg-enum-item" data-ng-class="{'sg-view': viewItems}">
+        <ul>
+            <li data-ng-repeat="item in enumItems track by $index" data-ng-class="{'sg-active': currentIndex == $index}" data-ng-click="select($index);">
+                <span style="{{ itemHeight }}">{{ item | translate }}</span>
+            </li>
+        </ul>
+    </div>
+</div>

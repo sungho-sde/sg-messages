@@ -1,0 +1,9 @@
+{
+  "name": "main",
+  "themeName": "cloudy",
+  "description": "sg-app",
+  "version": "0.0.1",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {}
+}

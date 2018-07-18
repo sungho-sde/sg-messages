@@ -1,0 +1,20 @@
+$empty-content-color-border: $pale-grey-two;
+
+sg-empty-content {
+  position: relative;
+  display: block;
+  div.sg-empty-content-wrap {
+    position: relative;
+    margin-top: 16px;
+    border-top: 1px solid $empty-content-color-border;
+    padding-top: 100px;
+    div.sg-empty-image {
+      position: relative;
+      margin: 0 auto;
+      width: 336px;
+      height: 240px;
+      @include background();
+      background-image: url(/pages/main/assets/images/img-empty-img-336-240@2x.png);
+    }
+  }
+}

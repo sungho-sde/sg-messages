@@ -1,0 +1,108 @@
+$page-number-color-base-border: $pale-grey-two;
+$page-number-color-base-text: $bluey-grey;
+$page-number-color-active-border: $dark;
+$page-number-color-active-text: $charcoal-grey;
+$page-number-color-background-hover: $pale-grey-three;
+
+sg-page-number {
+  position: relative;
+  display: block;
+}
+
+div.sg-pagination {
+  position: relative;
+  display: inline-block;
+  @include after-clear();
+  div.sg-pagination-very-first {
+    position: relative;
+    margin-top: 1px;
+    margin-right: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    float: left;
+    @include background();
+    background-image: url(/pages/main/assets/images/icons/ic-page-arrow-2-20@2x.png);
+    &:hover {
+      background-color: $page-number-color-background-hover;
+    }
+  }
+  div.sg-pagination-first {
+    position: relative;
+    margin-top: 1px;
+    margin-right: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    float: left;
+    @include background();
+    background-image: url(/pages/main/assets/images/icons/ic-page-arrow-1-20@2x.png);
+    &:hover {
+      background-color: $page-number-color-background-hover;
+    }
+  }
+  span.sg-pagination-index {
+    position: relative;
+    display: block;
+    margin-right: 8px;
+    border-bottom: 2px solid $page-number-color-base-border;
+    min-width: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $page-number-color-base-text;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+    &:last-of-type {
+      margin: 0;
+    }
+    &:hover {
+      border-color: $page-number-color-active-border;
+      color: $page-number-color-active-text;
+      font-weight: bold;
+    }
+    &.sg-active {
+      border-color: $page-number-color-active-border;
+      color: $page-number-color-active-text;
+      font-weight: bold;
+    }
+  }
+  div.sg-pagination-last {
+    position: relative;
+    margin-top: 1px;
+    margin-left: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    float: left;
+    @include background();
+    background-image: url(/pages/main/assets/images/icons/ic-page-arrow-1-20@2x.png);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    &:hover {
+      background-color: $page-number-color-background-hover;
+    }
+  }
+  div.sg-pagination-very-last {
+    position: relative;
+    margin-top: 1px;
+    margin-left: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    float: left;
+    @include background();
+    background-image: url(/pages/main/assets/images/icons/ic-page-arrow-2-20@2x.png);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    &:hover {
+      background-color: $page-number-color-background-hover;
+    }
+  }
+}

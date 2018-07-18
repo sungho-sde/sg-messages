@@ -1,0 +1,100 @@
+div.sg-modal-overlay {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    overflow-x: hidden;
+    @media screen and (min-width: 601px) {
+        //visibility: hidden;
+        //opacity: 0;
+        -webkit-transition: visibility .3s, opacity .3s;
+        -moz-transition: visibility .3s, opacity .3s;
+        -ms-transition: visibility .3s, opacity .3s;
+        -o-transition: visibility .3s, opacity .3s;
+        transition: visibility .3s, opacity .3s;
+        &.sg-active {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+    @media screen and (max-width: 600px) {
+        display: none;
+        &.sg-active {
+            display: block;
+        }
+    }
+    div.sg-vertical-align-wrap {
+        position: relative;
+        display: table;
+        width: 100%;
+        height: 100%;
+        div.sg-vertical-align {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        @media screen and (min-width: $g-grid-min-width-t) and (max-width: $g-grid-max-width-w) {
+            div.sg-vertical-align > div:first-child {
+                max-width: $g-grid-max-width-t;
+            }
+        }
+    }
+    button.sg-close-button {
+        position: absolute;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        z-index: 1;
+        cursor: pointer;
+        i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -1px;
+            margin-left: -9px;
+            width: 26px;
+            height: 2px;
+            background-color: $black-two;
+            &:nth-of-type(1) {
+                -webkit-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                -o-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+            &:nth-of-type(2) {
+                -webkit-transform: rotate(-45deg);
+                -moz-transform: rotate(-45deg);
+                -ms-transform: rotate(-45deg);
+                -o-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+            }
+        }
+
+        &.sg-with-title-header {
+            top: 0;
+            right: 0;
+            width: 48px;
+            height: 48px;
+            i {
+                width: 20px;
+                background-color: $warm-grey;
+            }
+        }
+    }
+
+    section.sg-modal-title-header {
+        height: 48px;
+        border-bottom: 1px solid $merqury;
+        padding-left: 16px;
+        line-height: 48px;
+        font-size: 16px;
+        color: $black-two;
+        font-weight: bold;
+    }
+}

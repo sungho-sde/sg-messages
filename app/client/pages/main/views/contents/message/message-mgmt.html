@@ -1,0 +1,40 @@
+<section id="sg-message-mgmt-wrap" data-ng-controller="MessageMgmtCtrl">
+    <div class="sg-message-header-wrap">
+        <h2 class="sg-page-title">{{ 'message' | translate }}</h2>
+        <button type="button" class="sg-button sg-auction sg-blue sg-message-create-btn"  data-ng-click="openMessageModal()">메시지 생성</button>
+    </div>
+
+    <div class="sg-page-items-wrap sg-top-margin-20">
+        <p data-ng-if="messages.count">{{ '총' | translate }} {{ messages.count }}</p>
+        <table  data-ng-if="messages.rows.length"
+                object-table
+                data="messages.rows"
+                headers="{{ itemFields.join(',') }}"
+                fields="{{ itemFields.join(',') }}"
+                display="form.size"
+                cellspacing="0"
+                cellpadding="0">
+            <thead>
+            <tr>
+                <th data-ng-repeat="itemField in $owner.itemFields"
+                    data-ng-class="{'sg-right': itemField.option && itemField.option.textAlignRight}">
+                    {{ itemField.field | translate }}<div class="resize"></div>
+                </th>
+            </tr>
+            </thead>
+            <tbody ng-non-bindable>
+                <tr>
+                    <td  data-ng-click="$event.stopPropagation(); $owner.openMessageModal()"><span>{{ item.code }}</span></td>
+                    <td><span>{{ item.title }}</span></td>
+                    <td><span>{{ item.body }}</span></td>
+                    <td><span>{{ item.date }}</span></td>
+                    <td><span>{{ item.createdAt | date: 'yyyy-MM-dd' }}</span></td>
+                    <td><span>{{ item.type }}</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <sg-empty-content sg-if="!messages.count"></sg-empty-content>
+        <sg-page-number size="form.size" total="messages.count" current-page-string="form.page" func="goToMessageMgmt"></sg-page-number>
+    </div>
+
+</section>

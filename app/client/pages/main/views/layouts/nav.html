@@ -1,0 +1,21 @@
+<nav id="sg-nav-warp" data-ng-controller="NavCtrl" data-ng-class="{'sg-nav-close': !vm.isNavOpen}">
+    <img id="sg-nav-icon" src="/pages/main/assets/images/img-header-logo-pc-black-48-48@3x.png" alt="crm" data-ng-click="goToMessageMgmt()"/>
+    <ul id="sg-nav">
+        <li class="sg-nav-item" data-ng-click="goToUserMgmt()" data-ng-class="{'sg-current': vm.currentNav['tradeManage']}">
+            <span class="sg-nav-icon"></span>
+            <span class="sg-nav-menu">유저관리</span>
+        </li>
+
+        <li class="sg-nav-item" data-ng-click="goToMessageMgmt()" data-ng-class="{'sg-current': vm.currentNav['tradeManage']}">
+            <span class="sg-nav-icon"></span>
+            <span class="sg-nav-menu">문자관리</span>
+        </li>
+
+        <li class="sg-nav-item" data-ng-click="goToSenderMgmt()" data-ng-class="{'sg-current': vm.currentNav['tradeManage']}">
+            <span class="sg-nav-icon"></span>
+            <span class="sg-nav-menu">발송관리</span>
+        </li>
+
+
+    </ul>
+</nav>

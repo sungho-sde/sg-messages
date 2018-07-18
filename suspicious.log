@@ -1,0 +1,2 @@
+Suspicious Request /api/accounts/users/%3Cscript%3E, fragment is on blacklist (Reflected XSS): "<script"" from ::1
+Suspicious Request /api/accounts/users/%3Cscript%3E, fragment is on blacklist (Reflected XSS): "<script"" from ::1

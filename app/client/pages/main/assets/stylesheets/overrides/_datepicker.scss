@@ -1,0 +1,29 @@
+$datepicker-color-text: $dark;
+$datepicker-color-year-background: #eef5ff;
+$datepicker-color-week-background: $pale-grey;
+$datepicker-color-border: $bluey-grey;
+
+._720kb-datepicker-calendar {
+  border-radius: 3px;
+  border: 1px solid $datepicker-color-border;
+  box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.17);
+  ._720kb-datepicker-calendar-header {
+    background: white;
+    ._720kb-datepicker-calendar-header-middle {
+      color: $datepicker-color-text;
+      a {
+        color: $datepicker-color-text;
+        span {
+          color: $datepicker-color-text;
+        }
+      }
+    }
+    ._720kb-datepicker-calendar-years-pagination-pages,
+    ._720kb-datepicker-calendar-years-pagination {
+      background-color: $datepicker-color-year-background;
+    }
+  }
+  ._720kb-datepicker-calendar-days-header {
+    background-color: $datepicker-color-week-background;
+  }
+}

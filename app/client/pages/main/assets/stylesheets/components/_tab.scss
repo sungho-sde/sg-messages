@@ -1,0 +1,35 @@
+$tab-color-border: $pale-grey-two;
+$tab-color-text: $bluey-grey;
+$tab-color-text-hover: $slate-grey;
+$tab-color-selected: $dark;
+
+div.sg-page-tab-menu-wrap {
+  position: relative;
+  margin-top: 6px;
+  border-bottom: 3px solid $tab-color-border;
+  height: 48px;
+  overflow: visible;
+  @include after-clear();
+  button.sg-page-tab-menu {
+    position: relative;
+    border-bottom: 3px solid transparent;
+    padding: 0 12px;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 400;
+    color: $tab-color-text;
+    float: left;
+    -webkit-transition: color .1s, font-weight .1s, border-color .1s;
+    -moz-transition: color .1s, font-weight .1s, border-color .1s;
+    -ms-transition: color .1s, font-weight .1s, border-color .1s;
+    -o-transition: color .1s, font-weight .1s, border-color .1s;
+    transition: color .1s, font-weight .1s, border-color .1s;
+    &:hover {
+      color: $tab-color-text-hover;
+    }
+    &.sg-selected {
+      color: $tab-color-selected;
+      border-color: $tab-color-selected;
+    }
+  }
+}

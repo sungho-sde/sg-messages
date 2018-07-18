@@ -1,0 +1,161 @@
+$image-uploader-color-border: $bluey-grey;
+$image-uploader-color-border-focus: $sky-blue;
+$image-uploader-color-explain: $bluey-grey;
+$image-uploader-color-item-border: $pale-grey-two;
+
+sg-image-uploader {
+  position: relative;
+  div.sg-image-uploader-wrap {
+    position: relative;
+    div.sg-image-upload-part {
+      position: relative;
+      border: 2px dashed $image-uploader-color-border;
+      height: 100px;
+      background-color: $white;
+      &.sg-file-over {
+        border-color: $image-uploader-color-border-focus;
+      }
+      p.sg-explain {
+        position: relative;
+        padding-left: 80px;
+        width: 100%;
+        height: 100%;
+        line-height: 98px;
+        color: $image-uploader-color-explain;
+        text-align: center;
+        background-image: url(/pages/main/assets/images/icons/ic-product-upload-88-70@2x.png);
+        background-size: 88px 70px;
+        background-position-y: center;
+        background-position-x: calc(50% - 80px);
+        background-repeat: no-repeat;
+      }
+      input.sg-upload-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 1;
+      }
+    }
+    div.sg-image-item-part {
+      position: relative;
+      margin-top: 20px;
+      margin-right: -10px;
+      margin-bottom: -10px;
+      width: calc(100% + 10px);
+    }
+  }
+}
+
+ul.sg-image-queue {
+  position: relative;
+  display: block;
+  width: 100%;
+  @include after-clear();
+  &.as-sortable-dragging {
+    position: absolute;
+    li.sg-image-item {
+      margin: 0;
+      width: 100%;
+    }
+  }
+  li.sg-image-item {
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: calc(25% - 10px);
+    float: left;
+    div.sg-image-item {
+      position: relative;
+      padding-top: 75%;
+      div.sg-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 5px;
+        border: 1px solid $image-uploader-color-item-border;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        &:hover {
+          div.sg-image-option {
+            opacity: 1;
+          }
+        }
+        div.sg-image-option {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, .5);
+          opacity: 0;
+          transition: opacity .3s;
+          z-index: 1;
+          div.sg-image-button {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-color: rgba(0, 0, 0, .5);
+            opacity: 0;
+            &.sg-whole {
+              height: 100%;
+              cursor: pointer;
+            }
+            &:hover {
+              opacity: 1;
+            }
+            &:nth-of-type(1) {
+              top: 0;
+              div.sg-icon {
+                background-image: url("/pages/main/assets/images/icons/ic-img-view-25@2x.png");
+              }
+            }
+            &:nth-of-type(2) {
+              top: 50%;
+              div.sg-icon {
+                background-image: url("/pages/main/assets/images/icons/ic-img-delete-25@2x.png");
+              }
+            }
+            div.sg-icon {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              margin-top: -12.5px;
+              margin-left: -12.5px;
+              width: 25px;
+              height: 25px;
+              @include background();
+            }
+          }
+        }
+        img {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      div.sg-loading-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid $image-uploader-color-item-border;
+        border-radius: 5px;
+        padding: 20px calc(12.5% + 20px);
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        div.sg-loading {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

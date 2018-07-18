@@ -1,0 +1,12 @@
+<div class="sg-pagination">
+
+    <div class="sg-pagination-very-first" data-ng-if="!pagination.isFirstPage" data-ng-click="goPage(1)"></div>
+    <div class="sg-pagination-first" data-ng-if="!pagination.isFirstPage" data-ng-click="goPage(pagination.pageNumbers[0] - 1 )"></div>
+
+    <span class="sg-pagination-index" data-ng-repeat="pageNumber in pagination.pageNumbers" data-ng-class="{'sg-active': pagination.selectedPageIndex == pageNumber}" data-ng-click="goPage(pageNumber)">
+        {{pageNumber}}
+    </span>
+
+    <div class="sg-pagination-last" data-ng-if="!pagination.isLastPage" data-ng-click="goPage(pagination.pageNumbers[pagination.pageNumbers.length - 1] + 1)"></div>
+    <div class="sg-pagination-very-last" data-ng-if="!pagination.isLastPage" data-ng-click="goPage(pagination.totalPage)"></div>
+</div>

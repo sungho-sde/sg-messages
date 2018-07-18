@@ -1,0 +1,42 @@
+<section id="sg-user-mgmt-wrap" data-ng-controller="UserMgmtCtrl">
+    <div class="sg-user-header-wrap">
+        <h2 class="sg-page-title">유저관리</h2>
+        <div><button type="button" class="sg-button sg-auction sg-blue sg-user-create-btn"  data-ng-click="openUserCreateModal()">유저 생성</button></div>
+        <div><button type="button" class="sg-button sg-auction sg-blue sg-user-upload-btn"  data-ng-click="openUserUploadModal()">유저 업로드</button></div>
+   </div>
+
+    <div class="sg-page-items-wrap sg-top-margin-20">
+        <p data-ng-if="users.count">{{ '총' | translate }} {{ users.count }}</p>
+        <table  data-ng-if="users.rows.length"
+                object-table
+                data="users.rows"
+                headers="{{ itemFields.join(',') }}"
+                fields="{{ itemFields.join(',') }}"
+                display="form.size"
+                cellspacing="0"
+                cellpadding="0">
+            <thead>
+            <tr>
+                <th data-ng-repeat="itemField in $owner.itemFields"
+                    data-ng-class="{'sg-right': itemField.option && itemField.option.textAlignRight}">
+                    {{ itemField.field | translate }}<div class="resize"></div>
+                </th>
+            </tr>
+            </thead>
+            <tbody ng-non-bindable>
+            <tr>
+                <td  data-ng-click="$event.stopPropagation(); $owner.openMessageModal()"><span>{{ item.code }}</span></td>
+                <td><span>{{ item.title }}</span></td>
+                <td><span>{{ item.body }}</span></td>
+                <td><span>{{ item.date }}</span></td>
+                <td><span>{{ item.createdAt | date: 'yyyy-MM-dd' }}</span></td>
+                <td><span>{{ item.type }}</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <sg-empty-content sg-if="!users.count"></sg-empty-content>
+
+        <sg-page-number size="form.size" total="users.count" current-page-string="form.page" func="goToUserMgmt"></sg-page-number>
+    </div>
+
+</section>

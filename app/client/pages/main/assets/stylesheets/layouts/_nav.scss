@@ -1,0 +1,286 @@
+$nav-hover-bg-color: #f2f2f2;
+$g-color-nav-menu: $dark;
+$gradient-start-color: #003064;
+$gradient-end-color: #005F9F;
+$inner-ul-background-color : $nav-hover-bg-color;
+$inner-item-hover-background-color : rgba(127, 162, 205, 0.52);
+$tab-active-background-color : $nav-hover-bg-color;
+
+
+$side-user-profile-height: 36px;
+
+#sg-nav-warp {
+  position: fixed;
+  top: 0;
+  left: -$g-navigation-size;
+  padding-top: $g-header-size;
+  width: $g-navigation-size;
+  height: 100%;
+  z-index: 20;
+  box-shadow: 0 0 5px 0 rgba(176, 194, 200, 0.49);
+  background-color: white;
+  -webkit-transition: transform .3s;
+  -moz-transition: transform .3s;
+  -ms-transition: transform .3s;
+  -o-transition: transform .3s;
+  transition: transform .3s;
+  -webkit-transform: translate3d($g-navigation-size, 0, 0);
+  -moz-transform: translate3d($g-navigation-size, 0, 0);
+  -ms-transform: translate3d($g-navigation-size, 0, 0);
+  -o-transform: translate3d($g-navigation-size, 0, 0);
+  transform: translate3d($g-navigation-size, 0, 0);
+  &.sg-nav-close {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+
+  .side-nav-tab-item {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+
+    &.sg-active{
+      a.li-a{
+        color: $dark;
+        background-color: $tab-active-background-color;
+        font-weight: 700;
+        &:before {
+          opacity: 1;
+        }
+      }
+    }
+    &.tab-open{
+      a.li-a{
+        color: $dark;
+        background-color: $tab-active-background-color;
+        &:before, &:after {
+          opacity: 1 !important;
+        }
+
+        &:after {
+          -webkit-transform: rotate(180deg);
+          -moz-transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+          -o-transform: rotate(180deg);
+          transform: rotate(180deg);
+        }
+      }
+      ul.inner-tab-ul{
+        max-height: 120px;
+      }
+      ul.inner-tab-ul.two-columns{
+        max-height: 60px;
+      }
+    }
+
+    &.fixed-tab{
+      a.li-a{
+        color: $dark;
+        background-color: $tab-active-background-color;
+        &:before, &:after {
+          opacity: 1 !important;
+        }
+
+        &:after {
+          -webkit-transform: rotate(180deg);
+          -moz-transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+          -o-transform: rotate(180deg);
+          transform: rotate(180deg);
+        }
+      }
+      ul.inner-tab-ul{
+        max-height: 120px;
+      }
+      ul.inner-tab-ul.two-columns{
+        max-height: 60px;
+      }
+    }
+
+    a.li-a{
+      position: relative;
+      display: block;
+      padding-left: 72px;
+      width: 100%;
+      height:100%;
+      color: $dark;
+      line-height: 46px;
+      transition: background-color .2s;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+
+      &:before {
+        content: "";
+        position: absolute;
+
+        width: 22px;
+        height: 22px;
+        left: 30px;
+        top: 13px;
+        opacity: 0.6;
+      }
+
+      &.has-child{
+        &:after{
+          content: "";
+          position: absolute;
+          width: 16px;
+          height: 12px;
+          background: url(/pages/main/assets/images/side-nav/ic-drop-line@2x.png) no-repeat;
+          background-size:cover;
+          opacity: 0.6;
+          top:16px;
+          right:18px;
+          transition: transform .3s ease;
+        }
+      }
+
+      &:hover {
+        color: $dark;
+        background-color: $nav-hover-bg-color;
+
+        &:before, &:after {
+          opacity: 1;
+        }
+      }
+
+      &.user-manage{
+        &:before {
+          background: url(/pages/main/assets/images/icons/ic-side-nav-company-info-20@2x.png) no-repeat;
+          background-size: cover;
+        }
+      }
+
+      &.stock-manage{
+        &:before {
+          background: url(/pages/main/assets/images/icons/ic-side-nav-customer-20@2x.png) no-repeat;
+          background-size: cover;
+        }
+      }
+
+      &.unsold-manage{
+        &:before {
+          background: url(/pages/main/assets/images/icons/ic-side-nav-product-20@2x.png) no-repeat;
+          background-size: cover;
+        }
+      }
+
+
+      &.ship-manage{
+        &:before {
+          background: url(/pages/main/assets/images/icons/ic-side-nav-purchase-20@2x.png) no-repeat;
+          background-size: cover;
+        }
+      }
+
+      &.client-manage{
+        &:before {
+          background: url(/pages/main/assets/images/icons/ic-side-nav-slaes-20@2x.png) no-repeat;
+          background-size: cover;
+        }
+      }
+      &.charge-manage{
+        &:before {
+          background: url(/pages/main/assets/images/icons/ic-side-nav-bill-20@2x.png) no-repeat;
+          background-size: cover;
+        }
+      }
+    }
+  }
+
+  ul.inner-tab-ul{
+    max-height: 0;
+    -webkit-transition: max-height .4s;
+    -moz-transition: max-height .4s;
+    -ms-transition: max-height .4s;
+    -o-transition: max-height .4s;
+    transition: max-height .4s;
+
+    background-color: $inner-ul-background-color;
+
+    li.sg-active{
+      a{
+        color: $dark;
+        background-color: $inner-item-hover-background-color;
+      }
+    }
+    a{
+      position: relative;
+      display: block;
+      padding-left: 72px;
+      width: 100%;
+      height:100%;
+      font-size: 12px;
+      transition: background-color .2s;
+      line-height: 30px;
+
+      &:hover{
+        background-color: $inner-item-hover-background-color;
+      }
+    }
+
+  }
+
+}
+
+#sg-nav-icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+#sg-nav {
+  position: relative;
+  padding: 0 12px;
+  width: 100%;
+  height: 100%;
+  li.sg-nav-item {
+    position: relative;
+    padding: 7px 0;
+    height: 44px;
+    cursor: pointer;
+    @include after-clear();
+    &.sg-current,
+    &:hover {
+      background-color: #f2f2f2;
+    }
+    &.sg-not-service {
+      opacity: .5;
+    }
+
+    span {
+      position: relative;
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      color: $g-color-nav-menu;
+      cursor: pointer;
+      float: left;
+      &.sg-nav-icon {
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 20px;
+      }
+      &.sg-nav-menu {
+        padding-left: 4px;
+        height: 30px;
+        line-height: 30px;
+      }
+    }
+  }
+
+
+
+
+
+}

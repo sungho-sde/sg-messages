@@ -1,7 +1,7 @@
 <section id="sg-message-mgmt-wrap" data-ng-controller="MessageMgmtCtrl">
     <div class="sg-message-header-wrap">
         <h2 class="sg-page-title">{{ 'message' | translate }}</h2>
-        <button type="button" class="sg-button sg-auction sg-blue sg-message-create-btn"  data-ng-click="openMessageModal()">메시지 생성</button>
+        <button type="button" class="sg-button sg-auction sg-blue sg-message-create-btn"  data-ng-click="openMessageCreateModal()">메시지 생성</button>
     </div>
 
     <div class="sg-page-items-wrap sg-top-margin-20">
@@ -24,7 +24,7 @@
             </thead>
             <tbody ng-non-bindable>
                 <tr>
-                    <td  data-ng-click="$event.stopPropagation(); $owner.openMessageModal()"><span>{{ item.code }}</span></td>
+                    <td  data-ng-click="$event.stopPropagation(); $owner.openMessageCreateModal()"><span>{{ item.code }}</span></td>
                     <td><span>{{ item.title }}</span></td>
                     <td><span>{{ item.body }}</span></td>
                     <td><span>{{ item.date }}</span></td>

@@ -4,7 +4,7 @@ export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filt
     var vm = $scope.vm;
 
     $scope.findMessages = findMessages;
-    $scope.openMessageModal = openMessageModal;
+    $scope.openMessageCreateModal = openMessageCreateModal;
     $scope.goToMessageMgmt = goToMessageMgmt;
     // $scope.openMessageDialog = openMessageDialog;
 
@@ -74,7 +74,7 @@ export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filt
         navigator.goTo("message-mgmt", params, reload);
     }
 
-    function openMessageModal(){
+    function openMessageCreateModal(){
         modalHandler.openModal("message-create", "message-create-modal", "contents/message", {
             width: "500px",
             height: "500px"

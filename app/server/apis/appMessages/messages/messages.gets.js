@@ -16,7 +16,9 @@ gets.validate = function () {
 gets.setParam = function () {
     return function (req, res, next) {
 
-        req.models.AppMessage.findByTitle(req.query, (status, data) => {
+        // req.models.AppMessage.findByTitle(req.query, (status, data) => {
+        console.log('\n req.query: ',req.query);
+        req.models.AppMessage.findMessages(req.query, (status, data) => {
             if (status == 200) {
                 req.data = data;
                 next();

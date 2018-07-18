@@ -56,13 +56,14 @@ api = {
         return function (req, res, next) {
 
             var params = {
-                acceptable: ['title'],
+                acceptable: ["size", "offset"],
                 essential: [],
                 resettable: [],
                 explains: {
-                    "title": "title",
+                    "size": "가져올 데이터 수",
+                    "offset": "offset",
                 },
-                title: '메세지 조회',
+                title: '메세지 리스트 조회',
                 state: 'development'
             };
             if (!isOnlyParams) {

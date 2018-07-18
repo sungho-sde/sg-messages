@@ -31,7 +31,7 @@ module.exports = {
         // },
         'title': {
             'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
-            'allowNull': true,
+            'allowNull': false,
             'defaultValue': 'default title'
         },
         'body': {
@@ -40,10 +40,6 @@ module.exports = {
         },
         'code': {
             'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
-            'allowNull': true
-        },
-        'date': {
-            'type': Sequelize.DATEONLY(),
             'allowNull': true
         },
         'type': {
@@ -67,6 +63,83 @@ module.exports = {
             },
             'deleteMessage': function() {
 
+            },
+            'findMessages': function (options, callback) {
+                var count = 0;
+                var loadedData = null;
+                var where = {};
+                var countWhere = {};
+                var query = {
+                    order: [['createdAt', STD.common.ASC]],
+                    where: where,
+                    limit: parseInt(options.size)
+                };
+
+                if (options.offset !== undefined) {
+                    query.offset = parseInt(options.offset);
+                }
+
+                if (options.authorId !== undefined) {
+                    where.authorId = options.authorId;
+                    countWhere.authorId = options.authorId;
+                }
+
+                if (options.startDate !== undefined || options.endDate !== undefined) {
+                    where.createdAt = {
+                        $and: []
+                    };
+                    countWhere.createdAt = {
+                        $and: []
+                    };
+                }
+
+                if (options.startDate !== undefined) {
+                    where.createdAt.$and.push({
+                        $gt: options.startDate
+                    });
+                    countWhere.createdAt.$and.push({
+                        $gt: options.startDate
+                    });
+                }
+
+                if (options.endDate !== undefined) {
+                    where.createdAt.$and.push({
+                        $lt: options.endDate
+                    });
+                    countWhere.createdAt.$and.push({
+                        $lt: options.endDate
+                    });
+                }
+                console.log('\noptions : ',options);
+                console.log('\nquery: ',query);
+                sequelize.models.AppMessage.count({
+                    where: countWhere
+                }).then(function (data) {
+                    if (data) {
+                        count = data;
+                        return sequelize.models.AppMessage.findAll(query);
+                    } else {
+                        throw new errorHandler.CustomSequelizeError(404, {
+                            code: '404_0003'
+                        });
+                    }
+                }).then(function (data) {
+                    if (data && data.length) {
+                        loadedData = data;
+                        return true;
+                    } else {
+                        throw new errorHandler.CustomSequelizeError(404, {
+                            code: '404_0003'
+                        });
+                    }
+                }).catch(errorHandler.catchCallback(callback)).done(function (isSuccess) {
+                    if (isSuccess) {
+                        callback(200, {
+                            count: count,
+                            rows: loadedData
+                        });
+                    }
+                });
             },
             'findByTitle': function (query, callback) {
                 let loadedData = null;

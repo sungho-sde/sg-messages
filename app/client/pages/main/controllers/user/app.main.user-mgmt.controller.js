@@ -33,14 +33,14 @@ export default function UserMgmtCtrl($scope, $rootScope, $stateParams, $filter, 
         var query = {};
         var number = $stateParams.page;
         if ($stateParams.size) query.size = $stateParams.size;
-        if (number) query.lastOffset = (number - 1) * query.size;
+        if (number) query.offset = (number - 1) * query.size;
 
 
 
         messageManager.findAll(query, function(status, data){
             if(status == 200){
-                $scope.users.rows = data.data;
-                $scope.users.count = data.data.length;
+                $scope.users = data.data;
+
             }
             else{
                 dialogHandler.alertError(status, data);
@@ -61,7 +61,6 @@ export default function UserMgmtCtrl($scope, $rootScope, $stateParams, $filter, 
     }
 
     function openUserCreateModal(){
-        console.log("\n\nopenUsercreatemodal\n\n");
         modalHandler.openModal("user-create", "user-create-modal", "contents/user", {
             width: "500px",
             height: "500px"

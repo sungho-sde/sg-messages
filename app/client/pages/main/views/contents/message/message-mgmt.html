@@ -24,10 +24,10 @@
             </thead>
             <tbody ng-non-bindable>
                 <tr>
-                    <td  data-ng-click="$event.stopPropagation(); $owner.openMessageCreateModal()"><span>{{ item.code }}</span></td>
+                    <td  data-ng-click="$event.stopPropagation(); $owner.openMessageCreateModal()"><span>{{ item.id }}</span></td>
                     <td><span>{{ item.title }}</span></td>
                     <td><span>{{ item.body }}</span></td>
-                    <td><span>{{ item.date }}</span></td>
+                    <td><span>{{ item.updatedAt | date: 'yyyy-MM-dd' }}</span></td>
                     <td><span>{{ item.createdAt | date: 'yyyy-MM-dd' }}</span></td>
                     <td><span>{{ item.type }}</span></td>
                 </tr>

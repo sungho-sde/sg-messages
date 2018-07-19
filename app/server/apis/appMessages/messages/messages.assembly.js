@@ -18,7 +18,7 @@ api = {
         return function (req, res, next) {
 
             var params = {
-                acceptable: ['title', 'body', 'type', 'code','date'],
+                acceptable: ['title', 'body', 'type'],
                 essential: [],
                 resettable: [],
                 explains: {

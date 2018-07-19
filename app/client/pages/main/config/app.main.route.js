@@ -8,6 +8,8 @@ export default function routes($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('redirect', {
             url: '/',
+            url: '/user ',
+            url: '/sender ',
             views: {
                 contents: {
                     templateUrl: templatePath + 'main/views/contents/redirect.html'
@@ -15,7 +17,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
             }
         }).
         state('user-mgmt', {
-        url: '/user',
+        url: '/user?page&size',
         views: {
             contents: {
                 templateUrl: templatePath + 'main/views/contents/user/user-mgmt.html'

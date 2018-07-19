@@ -12,20 +12,11 @@ export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filt
     $scope.itemFields = $filter('tableHeader')(fields);
 
     $scope.messages = {};
-    $scope.form = {
-        size: 12,
-        page:1
-    };
+    $scope.form = $stateParams;
     init();
     console.log("\n itemFields: ",$scope.itemFields);
     console.log("\n items:", $scope.item, $scope.itemFields.field );
     console.log('\n stateParams1 : ',$stateParams);
-
-
-    // $scope.form = $stateParams;
-    // if(!$stateParams.size){
-    //     navigator.setParams('size',13);
-    // }
 
     function init(){
         $scope.messages= {
@@ -43,18 +34,14 @@ export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filt
             query.size = $stateParams.size;
         }
         if (number) {
-            query.lastOffset = (number - 1) * query.size;
+            query.offset = (number - 1) * query.size;
         }
 
 
         messageManager.findAll(query, function(status, data){
             if(status == 200){
-                console.log('\nquery data : ',data);
-                console.log('\nstateParams : ',$stateParams);
-                console.log('\nmessages rows : ',$scope.messages.rows.length);
-                $scope.messages.count = data.data.length;
-                $scope.messages.rows = data.data;
-
+                $scope.messages = data.data;
+                console.log($scope.form);
             }
             else{
                 dialogHandler.alertError(status, data);
@@ -65,12 +52,13 @@ export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filt
 
     function goToMessageMgmt(page, reload){
         var params = {};
+
         if (page) {
             params.page = page;
         } else if ($scope.form.page) {
             params.page = $scope.form.page;
         }
-
+        if ($scope.form.size) params.size = $scope.form.size;
         navigator.goTo("message-mgmt", params, reload);
     }
 

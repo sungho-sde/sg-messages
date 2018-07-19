@@ -130,6 +130,7 @@ module.exports = {
                     }
                 }).catch(errorHandler.catchCallback(callback)).done(function (isSuccess) {
                     if (isSuccess) {
+                        console.log('(appMessages/findMessages : pass \n\n)');
                         callback(200, {
                             count: count,
                             rows: loadedData

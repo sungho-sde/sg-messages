@@ -38,10 +38,6 @@ module.exports = {
             'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
             'allowNull': true
         },
-        'code': {
-            'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
-            'allowNull': true
-        },
         'type': {
             'type': Sequelize.CHAR(3),
             'allowNull': true

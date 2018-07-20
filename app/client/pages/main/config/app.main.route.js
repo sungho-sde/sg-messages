@@ -25,10 +25,10 @@ export default function routes($stateProvider, $urlRouterProvider) {
         }
         })
         .state('message-mgmt', {
-            url: '/messages?page&size',
+            url: '/template?page&size',
             views: {
                 contents: {
-                    templateUrl: templatePath + 'main/views/contents/message/message-mgmt.html'
+                    templateUrl: templatePath + 'main/views/contents/template/template-mgmt.html'
                 }
             }
         })

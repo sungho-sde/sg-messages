@@ -63,7 +63,7 @@ export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filt
     }
 
     function openMessageCreateModal(){
-        modalHandler.openModal("message-create", "message-create-modal", "contents/message", {
+        modalHandler.openModal("template-create", "template-create-modal", "contents/template", {
             width: "500px",
             height: "500px"
         }, {

@@ -1,4 +1,4 @@
-export default function UserCreateModalCtrl ($scope, $rootScope, $element, $filter, modalHandler, dialogHandler, messageManager) {
+export default function UserCreateModalCtrl ($scope, $rootScope, $element, $filter, modalHandler, dialogHandler, templateManager) {
     'ngInject';
 
     var vm = $scope.vm;

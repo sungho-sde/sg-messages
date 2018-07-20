@@ -33,11 +33,11 @@ import sgEmptyContent from './directives/sg-empty-content/app.main.sg-empty-cont
 import sgModalHeader from './directives/sg-modal-header/app.main.sg-modal-header';
 import sgPageNumber from './directives/sg-page-number/app.main.sg-page-number';
 
-import messageManager from './services/managers/app.main.message.manager';
+import templateManager from './services/managers/app.main.template.manager';
 import statusHandler from './services/app.main.status.handler';
 import modalHandler from './services/app.main.modal.handler';
 
-import Messages from './services/models/app.main.message.model';
+import Templates from './services/models/app.main.templates.model';
 
 import sideNavItems from './services/constants/app.main.side-nav.constant';
 import sideNavParentItems from './services/constants/app.main.side-nav-parent.constant'
@@ -73,10 +73,10 @@ angular.module(APP_NAME, ['app.main-core', 'app.main.template', 'objectTable'])
 
     .service("navigator", navigator)
     .service("statusHandler", statusHandler)
-    .service("messageManager", messageManager)
+    .service("templateManager", templateManager)
     .service("modalHandler", modalHandler)
 
-    .factory("Messages", Messages)
+    .factory("Templates", Templates)
 
     .directive("sgSideNav", sgSideNav)
     .directive("sgEmptyContent", sgEmptyContent)

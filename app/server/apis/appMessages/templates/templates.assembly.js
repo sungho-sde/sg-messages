@@ -53,7 +53,7 @@ api = {
         return function (req, res, next) {
 
             var params = {
-                acceptable: ['title'],
+                acceptable: ['size','offset'],
                 essential: [],
                 resettable: [],
                 explains: {
@@ -86,7 +86,7 @@ api = {
         return function (req, res, next) {
 
             var params = {
-                acceptable: ['title', 'body', 'type', 'code','date'],
+                acceptable: ['title', 'body'],
                 essential: [],
                 resettable: [],
                 explains: {

@@ -1,4 +1,4 @@
-export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filter, navigator, messageManager, modalHandler, dialogHandler) {
+export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filter, navigator, templateManager, modalHandler, dialogHandler) {
     "ngInject";
 
     var vm = $scope.vm;
@@ -38,7 +38,7 @@ export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filt
         }
 
 
-        messageManager.findAll(query, function(status, data){
+        templateManager.findAll(query, function(status, data){
             if(status == 200){
                 $scope.messages = data.data;
                 console.log($scope.form);

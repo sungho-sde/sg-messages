@@ -1,4 +1,4 @@
-export default function UserMgmtCtrl($scope, $rootScope, $stateParams, $filter, navigator, messageManager, modalHandler, dialogHandler) {
+export default function UserMgmtCtrl($scope, $rootScope, $stateParams, $filter, navigator,templateManager, modalHandler, dialogHandler) {
     "ngInject";
 
     var vm = $scope.vm;
@@ -37,7 +37,7 @@ export default function UserMgmtCtrl($scope, $rootScope, $stateParams, $filter, 
 
 
 
-        messageManager.findAll(query, function(status, data){
+        templateManager.findAll(query, function(status, data){
             if(status == 200){
                 $scope.users = data.data;
 

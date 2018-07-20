@@ -38,17 +38,13 @@ module.exports = {
             'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
             'allowNull': true
         },
-        'type': {
-            'type': Sequelize.CHAR(3),
-            'allowNull': true
-        }
     },
     'options': {
         'charset': CONFIG.db.charset,
         'classMethods': Sequelize.Utils._.extend(mixin.options.classMethods, {
             'createMessage': function(body, callback) {
                 let createdData = null;     //res로 반환할 데이터
-                sequelize.models.AppMessage.create(body).then((data) => {
+                sequelize.models.AppTemplate.create(body).then((data) => {
                     createdData = data;
                     return true; // true 를 return 하면 isSuccess 로 들어감
                 }).catch(errorHandler.catchCallback(callback)).done((isSuccess) => {
@@ -66,7 +62,7 @@ module.exports = {
                 var where = {};
                 var countWhere = {};
                 var query = {
-                    order: [['createdAt', STD.common.ASC]],
+                    order: [['createdAt', STD.common.DESC]],
                     where: where,
                     limit: parseInt(options.size)
                 };
@@ -75,45 +71,18 @@ module.exports = {
                     query.offset = parseInt(options.offset);
                 }
 
-                if (options.authorId !== undefined) {
-                    where.authorId = options.authorId;
-                    countWhere.authorId = options.authorId;
-                }
 
-                if (options.startDate !== undefined || options.endDate !== undefined) {
-                    where.createdAt = {
-                        $and: []
-                    };
-                    countWhere.createdAt = {
-                        $and: []
-                    };
-                }
-
-                if (options.startDate !== undefined) {
-                    where.createdAt.$and.push({
-                        $gt: options.startDate
-                    });
-                    countWhere.createdAt.$and.push({
-                        $gt: options.startDate
-                    });
-                }
-
-                if (options.endDate !== undefined) {
-                    where.createdAt.$and.push({
-                        $lt: options.endDate
-                    });
-                    countWhere.createdAt.$and.push({
-                        $lt: options.endDate
-                    });
-                }
                 console.log('\noptions : ',options);
-                console.log('\nquery: ',query);
-                sequelize.models.AppMessage.count({
+                console.log('\nquery for findAll: ',query);
+
+                sequelize.models.AppTemplate.findAndCountAll(query)
+
+                sequelize.models.AppTemplate.count({
                     where: countWhere
                 }).then(function (data) {
                     if (data) {
                         count = data;
-                        return sequelize.models.AppMessage.findAll(query);
+                        return sequelize.models.AppTemplate.findAll(query);
                     } else {
                         throw new errorHandler.CustomSequelizeError(404, {
                             code: '404_0003'
@@ -130,17 +99,17 @@ module.exports = {
                     }
                 }).catch(errorHandler.catchCallback(callback)).done(function (isSuccess) {
                     if (isSuccess) {
-                        console.log('(appMessages/findMessages : pass \n\n)');
+                        console.log('(AppTemplates/findMessages : pass \n\n)');
                         callback(200, {
                             count: count,
                             rows: loadedData
                         });
-                    }
+                }
                 });
             },
             'findByTitle': function (query, callback) {
                 let loadedData = null;
-                sequelize.models.AppMessage.findAll({ where: query }).then(data => {
+                sequelize.models.AppTemplate.findAll({ where: query }).then(data => {
                     loadedData = data;
                     return true;
                 }).catch(errorHandler.catchCallback(callback)).done((isSuccess) => {

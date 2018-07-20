@@ -40,7 +40,7 @@ export default function MessagesMgmtCtrl($scope, $rootScope, $stateParams, $filt
 
         templateManager.findAll(query, function(status, data){
             if(status == 200){
-                $scope.messages = data.data;
+                $scope.messages = data;
                 console.log($scope.form);
             }
             else{

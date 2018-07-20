@@ -53,14 +53,9 @@ module.exports = {
                     }
                 });
             },
-            'deleteMessage': function() {
-
-            },
-            'findMessages': function (options, callback) {
-                var count = 0;
+            'findTemplates': function (options, callback) {
                 var loadedData = null;
                 var where = {};
-                var countWhere = {};
                 var query = {
                     order: [['createdAt', STD.common.DESC]],
                     where: where,
@@ -71,25 +66,12 @@ module.exports = {
                     query.offset = parseInt(options.offset);
                 }
 
+                if (options.authorId !== undefined) {
+                    where.authorId = options.authorId;
+                }
 
-                console.log('\noptions : ',options);
-                console.log('\nquery for findAll: ',query);
-
-                sequelize.models.AppTemplate.findAndCountAll(query)
-
-                sequelize.models.AppTemplate.count({
-                    where: countWhere
-                }).then(function (data) {
+                sequelize.models.AppTemplate.findAndCountAll(query).then((data) => {
                     if (data) {
-                        count = data;
-                        return sequelize.models.AppTemplate.findAll(query);
-                    } else {
-                        throw new errorHandler.CustomSequelizeError(404, {
-                            code: '404_0003'
-                        });
-                    }
-                }).then(function (data) {
-                    if (data && data.length) {
                         loadedData = data;
                         return true;
                     } else {
@@ -97,27 +79,24 @@ module.exports = {
                             code: '404_0003'
                         });
                     }
-                }).catch(errorHandler.catchCallback(callback)).done(function (isSuccess) {
-                    if (isSuccess) {
-                        console.log('(AppTemplates/findMessages : pass \n\n)');
-                        callback(200, {
-                            count: count,
-                            rows: loadedData
-                        });
-                }
-                });
-            },
-            'findByTitle': function (query, callback) {
-                let loadedData = null;
-                sequelize.models.AppTemplate.findAll({ where: query }).then(data => {
-                    loadedData = data;
-                    return true;
                 }).catch(errorHandler.catchCallback(callback)).done((isSuccess) => {
                     if (isSuccess) {
-                        callback(200,loadedData);
+                        callback(200, loadedData);
+                    }
+                });
+            },
+            'deleteTemplateById': function(id, callback) {
+                sequelize.models.AppTemplate.destroy({
+                    where: {
+                        id: id
+                    }
+                }).catch(errorHandler.catchCallback(callback)).done((isSuccess) => {
+                    if (isSuccess) {
+                        callback(204);
                     }
                 });
             }
         })
     }
 };
+

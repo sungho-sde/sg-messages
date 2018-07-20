@@ -18,7 +18,7 @@ gets.setParam = function () {
 
         console.log('\n req.query: ',req.query);
         // req.models.AppTemplate.findByTitle(req.query, (status, data) => {
-        req.models.AppTemplate.findMessages(req.query, (status, data) => {
+        req.models.AppTemplate.findTemplates(req.query, (status, data) => {
             if (status == 200) {
                 req.data = data;
                 next();
@@ -31,7 +31,7 @@ gets.setParam = function () {
 
 gets.supplement = function () {
     return function (req, res, next) {
-        return res.hjson(req, next, 200, { data: req.data, count: 0 });
+        return res.hjson(req, next, 200, req.data);
     };
 };
 

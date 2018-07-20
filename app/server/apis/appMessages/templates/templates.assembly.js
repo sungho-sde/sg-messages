@@ -4,6 +4,7 @@ var resource = filePath[filePath.length - 1];
 
 var post = require('./' + resource + '.post.js');
 var gets = require('./' + resource + '.gets.js');
+var del = require('./' + resource + '.del.js');
 
 var express = require('express');
 var router = new express.Router();
@@ -59,7 +60,7 @@ api = {
                 explains: {
                     "title": "title",
                 },
-                title: '메세지 조회',
+                title: '메세지 템플릿 조회',
                 state: 'development'
             };
             if (!isOnlyParams) {
@@ -95,7 +96,7 @@ api = {
                     'body': '바디'
                 },
                 param: '',
-                title: '메세지 만들기',
+                title: '메세지 템플릿 생성',
                 state: 'development'
             };
 
@@ -119,6 +120,37 @@ api = {
                 return params;
             }
         };
+    },
+    delete: function (isOnlyParams) {
+        return function (req, res, next) {
+            var params = {
+                acceptable: [],
+                essential: [],
+                resettable: [],
+                explains: {
+                    'id': '데이터 리소스의 id'
+                },
+                title: '메세지 템플릿 삭제',
+                param: 'id',
+                state: 'development'
+            };
+
+            if (!isOnlyParams) {
+                var apiCreator = new HAPICreator(req, res, next);
+                apiCreator.add(req.middles.validator(
+                    params.acceptable,
+                    params.essential,
+                    params.resettable
+                ));
+                apiCreator.add(del.validate());
+                apiCreator.add(del.destroy());
+                apiCreator.add(del.supplement());
+                apiCreator.run();
+            }
+            else {
+                return params;
+            }
+        };
     }
 
 };
@@ -126,6 +158,7 @@ api = {
 // router.get('/' + resource + '/:id' , api.get());
 router.get('/' + resource , api.gets());
 router.post('/' + resource, api.post());
+router.delete('/' + resource + '/:id', api.delete());
 
 module.exports.router = router;
 module.exports.api = api;

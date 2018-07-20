@@ -42,7 +42,6 @@ post.sendMessage = function() {
         var from  = req.body.from ;
         var to = req.body.to;
         var message = req.body.body;
-        var type = 'sms';
         var NOTIFICATION_UTIL = req.appUtils.notification;
 
         NOTIFICATION_UTIL.sendSms(req, from , to, message, function(status, data){

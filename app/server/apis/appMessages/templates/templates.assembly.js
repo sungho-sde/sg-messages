@@ -2,8 +2,10 @@ var path = require('path');
 var filePath = path.resolve(__filename, '../').split('/');
 var resource = filePath[filePath.length - 1];
 
-var post = require('./' + resource + '.post.js');
+var get = require('./' + resource + '.get.js');
 var gets = require('./' + resource + '.gets.js');
+var post = require('./' + resource + '.post.js');
+var put = require('./' + resource + '.put.js');
 var del = require('./' + resource + '.del.js');
 
 var express = require('express');
@@ -15,41 +17,40 @@ const STD = META.std;
 
 var api;
 api = {
-    // get: function (isOnlyParams) {
-    //     return function (req, res, next) {
-    //
-    //         var params = {
-    //             acceptable: [],
-    //             essential: [],
-    //             resettable: [],
-    //             explains: {
-    //                 'id': '데이터를 얻을 리소스의 id'
-    //             },
-    //             param: 'id',
-    //             title: '',
-    //             state: 'development'
-    //         };
-    //
-    //         if (!isOnlyParams) {
-    //             var apiCreator = new HAPICreator(req, res, next);
-    //
-    //             apiCreator.add(req.middles.validator(
-    //                 params.acceptable,
-    //                 params.essential,
-    //                 params.resettable
-    //             ));
-    //             apiCreator.add(get.validate());
-    //             apiCreator.add(get.setParam());
-    //             apiCreator.add(get.supplement());
-    //             apiCreator.run();
-    //
-    //
-    //         }
-    //         else {
-    //             return params;
-    //         }
-    //     };
-    // },
+    get: function (isOnlyParams) {
+        return function (req, res, next) {
+
+            var params = {
+                acceptable: [],
+                essential: [],
+                resettable: [],
+                explains: {
+                    'id': '데이터를 얻을 리소스의 id'
+                },
+                param: 'id',
+                title: '',
+                state: 'development'
+            };
+
+            if (!isOnlyParams) {
+                var apiCreator = new HAPICreator(req, res, next);
+
+                apiCreator.add(req.middles.validator(
+                    params.acceptable,
+                    params.essential,
+                    params.resettable
+                ));
+                apiCreator.add(get.validate());
+                apiCreator.add(get.setParam());
+                apiCreator.add(get.supplement());
+                apiCreator.run();
+
+            }
+            else {
+                return params;
+            }
+        };
+    },
     gets: function (isOnlyParams) {
         return function (req, res, next) {
 
@@ -91,7 +92,6 @@ api = {
                 essential: [],
                 resettable: [],
                 explains: {
-                    'id': 'Message ID',
                     'title': '타이틀',
                     'body': '바디'
                 },
@@ -115,6 +115,42 @@ api = {
                 apiCreator.run();
 
                 delete apiCreator;
+            }
+            else {
+                return params;
+            }
+        };
+    },
+    put: function (isOnlyParams) {
+        return function (req, res, next) {
+
+            var params = {
+                acceptable: ['title', 'body'],
+                essential: [],
+                resettable: ['title', 'body'],
+                explains: {
+                    'title': '타이틀',
+                    'body': '바디'
+                },
+                title: '메세지 템플릿 수정',
+                param: 'id',
+                state: 'development'
+            };
+
+            if (!isOnlyParams) {
+                var apiCreator = new HAPICreator(req, res, next);
+
+                apiCreator.add(req.middles.validator(
+                    params.acceptable,
+                    params.essential,
+                    params.resettable
+                ));
+                apiCreator.add(put.validate());
+                apiCreator.add(put.find());
+                apiCreator.add(put.update());
+                apiCreator.add(put.supplement());
+                apiCreator.run();
+
             }
             else {
                 return params;
@@ -155,9 +191,10 @@ api = {
 
 };
 
-// router.get('/' + resource + '/:id' , api.get());
+router.get('/' + resource + '/:id' , api.get());
 router.get('/' + resource , api.gets());
 router.post('/' + resource, api.post());
+router.put('/' + resource + '/:id', api.put());
 router.delete('/' + resource + '/:id', api.delete());
 
 module.exports.router = router;

@@ -5,18 +5,24 @@ var logger = new Logger(__filename);
 
 post.validate = function () {
     return function (req, res, next) {
-        var STOCK = req.meta.std.stock;
-
+        let COMMON = req.meta.std.common;
         // req.check('id', '400_12').isInt();
 
+        if (req.body.title !== undefined) {
+            req.check('title','400_8').len(COMMON.minLength, COMMON.maxLength);
+        }
+        if (req.body.body !== undefined) {
+            req.check('body','400_8').len(COMMON.minLength, COMMON.maxLength);
+        }
         req.utils.common.checkError(req, res, next);
+        console.log('id');
     };
 };
 
 post.setParam = function () {
     return function (req, res, next) {
         console.log('\npost req.body: ', req.body, '\n');
-        req.models.AppTemplate.createMessage(req.body, (status, data) => {
+        req.models.AppTemplate.createTemplate(req.body, (status, data) => {
             if (status == 201) {
                 req.data = data;
                 next();
@@ -24,18 +30,8 @@ post.setParam = function () {
                 return res.hjson(req, next, status, data);
             }
         });
-        // req.models.AppTemplate.createMessage(body, function (status, data) {
-        //     if (status == 200) {
-        //         req.instance = data;
-        //         console.log('req.instance : ', req.instance);
-        //         next();
-        //     } else {
-        //         return res.hjson(req, next, status, data);
-        //     }
-        // });
     };
 };
-
 
 post.sendMessage = function() {
     return function (req, res, next) {
@@ -56,7 +52,6 @@ post.sendMessage = function() {
 
     }
 };
-
 
 post.supplement = function () {
     return function (req, res, next) {

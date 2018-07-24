@@ -21,30 +21,30 @@ var coreUtils = require("../../../../core/server/utils");
 var CONFIG = require('../../../../bridge/config/env');
 
 module.exports = {
+
     'fields': {
-        // 'authorId': {
-        //     'reference': 'User',
-        //     'referenceKey': 'id',
-        //     'as': 'author',
-        //     'asReverse': 'releases',
-        //     'allowNull': true
-        // },
-        'title': {
-            'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
-            'allowNull': false,
-            'defaultValue': 'default title'
-        },
-        'body': {
-            'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
+        'senderId': {
+            'reference': 'AppSender',
+            'referenceKey': 'id',
+            'as': 'Sender',
+            'asReverse': 'senderHistories',
             'allowNull': true
         },
+        'sendCount': {
+            'type': Sequelize.INTEGER,
+            'allowNull': true
+        },
+        'successCount': {
+            'type': Sequelize.INTEGER,
+            'allowNull': true
+        }
     },
     'options': {
         'charset': CONFIG.db.charset,
         'classMethods': Sequelize.Utils._.extend(mixin.options.classMethods, {
-            'createTemplate': function(body, callback) {
+            'createSenderHistory': function(body, callback) {
                 let createdData = null;     //res로 반환할 데이터
-                sequelize.models.AppTemplate.create(body).then((data) => {
+                sequelize.models.AppSenderHistory.create(body).then((data) => {
                     createdData = data;
                     return true; // true 를 return 하면 isSuccess 로 들어감
                 }).catch(errorHandler.catchCallback(callback)).done((isSuccess) => {
@@ -53,7 +53,7 @@ module.exports = {
                     }
                 });
             },
-            'findTemplates': function (options, callback) {
+            'findSenderHistories': function (options, callback) {
                 var loadedData = null;
                 var where = {};
                 var query = {
@@ -66,11 +66,7 @@ module.exports = {
                     query.offset = parseInt(options.offset);
                 }
 
-                if (options.authorId !== undefined) {
-                    where.authorId = options.authorId;
-                }
-
-                sequelize.models.AppTemplate.findAndCountAll(query).then((data) => {
+                sequelize.models.AppSenderHistory.findAndCountAll(query).then((data) => {
                     if (data) {
                         loadedData = data;
                         return true;
@@ -85,8 +81,8 @@ module.exports = {
                     }
                 });
             },
-            'deleteTemplateById': function(id, callback) {
-                sequelize.models.AppTemplate.destroy({
+            'deleteSenderHistoryById': function(id, callback) {
+                sequelize.models.AppSenderHistory.destroy({
                     where: {
                         id: id
                     }
@@ -99,4 +95,3 @@ module.exports = {
         })
     }
 };
-

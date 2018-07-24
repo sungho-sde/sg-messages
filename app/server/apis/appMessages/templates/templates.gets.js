@@ -5,8 +5,6 @@ var logger = new Logger(__filename);
 
 gets.validate = function () {
     return function (req, res, next) {
-        var STOCK = req.meta.std.stock;
-
         // req.check('id', '400_12').isInt();
 
         req.utils.common.checkError(req, res, next);
@@ -17,7 +15,6 @@ gets.setParam = function () {
     return function (req, res, next) {
 
         console.log('\n req.query: ',req.query);
-        // req.models.AppTemplate.findByTitle(req.query, (status, data) => {
         req.models.AppTemplate.findTemplates(req.query, (status, data) => {
             if (status == 200) {
                 req.data = data;

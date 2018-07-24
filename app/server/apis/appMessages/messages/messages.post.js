@@ -15,7 +15,6 @@ post.validate = function () {
 
 post.setParam = function () {
     return function (req, res, next) {
-        console.log('\npost req.body: ', req.body, '\n');
         // var instance = req.models.AppMessage.build(body);
         // req.appUtils.exports
         req.models.AppMessage.createMessage(req.body, (status, data) => {

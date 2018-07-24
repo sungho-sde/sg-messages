@@ -4,8 +4,7 @@ var logger = new Logger(__filename);
 
 
 del.validate = function () {
-    return function (req, res, next) {
-        var STOCK = req.meta.std.stock;
+    return function (req, res, next) {z
 
         // req.check('id', '400_12').isInt();
 
@@ -23,15 +22,6 @@ del.destroy = function () {
                 return res.hjson(req, next, status, data);
             }
         });
-        // req.models.AppTemplate.createMessage(body, function (status, data) {
-        //     if (status == 200) {
-        //         req.instance = data;
-        //         console.log('req.instance : ', req.instance);
-        //         next();
-        //     } else {
-        //         return res.hjson(req, next, status, data);
-        //     }
-        // });
     };
 };
 

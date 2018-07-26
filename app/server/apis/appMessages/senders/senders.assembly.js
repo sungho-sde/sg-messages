@@ -109,7 +109,10 @@ api = {
                 ));
                 apiCreator.add(post.validate());
                 apiCreator.add(post.setParam());
-                // apiCreator.add(post.sendMessage());
+                apiCreator.add(post.getTemplateBody());
+                apiCreator.add(post.sendMessage());
+                // apiCreator.add(post.setSenderHistory());
+                // apiCreator.add(post.supplement());
                 apiCreator.add(post.supplement());
                 apiCreator.run();
 

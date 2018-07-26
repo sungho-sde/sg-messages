@@ -1,6 +1,7 @@
 var post = {};
 var Logger = require('sg-logger');
 var logger = new Logger(__filename);
+var COMMONAPP = require('../../../config/env/common');
 
 
 post.validate = function () {
@@ -35,25 +36,65 @@ post.setParam = function () {
     };
 };
 
+post.getTemplateBody = function () {
+    return function (req, res, next) {
+        req.models.AppTemplate.findOne({
+            where: {
+                id: req.data.templateId
+            }
+        }).then((data) => {
+            if (data) {
+                req.data.template = data.dataValues;
+                next();
+            } else {
+                return res.hjson(req, next, 404, data)
+            }
+        })
+    }
+}
+
 post.sendMessage = function() {
     return function (req, res, next) {
-        var from  = req.body.from ;
-        var to = req.body.to;
-        var message = req.body.body;
+        var sender = COMMONAPP.sender.apiStoreSMS.from;
+        var receiver = req.body.receiver;
+        var message = req.data.template.body;
         var NOTIFICATION_UTIL = req.appUtils.notification;
 
-        NOTIFICATION_UTIL.sendSms(req, from , to, message, function(status, data){
-            console.log(status, data);
-            if(status == 200){
+        NOTIFICATION_UTIL.sendSms(req, sender, receiver, message, function(status, data){
+            console.log('After NOTIFICATION : \n',status, data);
+            if (status == 200){
+                // add sendcount success count
                 next();
             }
             else{
+                // add sendcount only.
                 return res.hjson(req, next, 400, data);
             }
         })
 
     }
 };
+post.setSenderHistory = function () {
+    return function (req, res, next) {
+        data = req.data.datavalues;
+        body = {
+            'senderId': data.senderId,
+            'templateId': data.templateId,
+
+        }
+
+
+        req.models.AppTemplate.createSenderHistory(req.body, (status, data) => {
+            if (status == 201) {
+                req.data = data;
+                next();
+            } else {
+                return res.hjson(req, next, status, data);
+            }
+        });
+    };
+};
+
 
 post.supplement = function () {
     return function (req, res, next) {

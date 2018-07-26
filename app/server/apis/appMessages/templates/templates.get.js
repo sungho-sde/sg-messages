@@ -11,6 +11,8 @@ get.validate = function () {
 
 get.setParam = function () {
     return function (req, res, next) {
+        console.log('\n req.query: ',req.params);
+
         req.models.AppTemplate.findOne({
             where: {
                 id: req.params.id

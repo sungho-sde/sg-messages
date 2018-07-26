@@ -86,13 +86,21 @@ api = {
         return function (req, res, next) {
 
             var params = {
-                acceptable: ['senderId', 'templateId', 'receiver'],
-                essential: [],
+                acceptable: [
+                    'senderId',
+                    'templateId',
+                    'receiver'
+                ],
+                essential: [
+                    'senderId',
+                    'templateId',
+                    'receiver'
+                ],
                 resettable: [],
                 explains: {
                     'senderId': 'senderId',
                     'templateId': 'templateId',
-                    'receiver': 'receiver'
+                    'receivers': 'receivers (,)로 구분'
                 },
                 param: '',
                 title: '센더 생성',

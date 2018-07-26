@@ -20,6 +20,10 @@ var STD = require('../../../../bridge/metadata/standards');
 var coreUtils = require("../../../../core/server/utils");
 var CONFIG = require('../../../../bridge/config/env');
 
+var getDBStringLength = coreUtils.initialization.getDBStringLength;
+
+var isSending = false;
+
 module.exports = {
 
     'fields': {
@@ -30,8 +34,8 @@ module.exports = {
         //     'asReverse': 'releases',
         //     'allowNull': true
         // },
-        'senderId': {
-            'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
+        'sender': {
+            'type': Sequelize.STRING(getDBStringLength()),
             'allowNull': false
         },
         'templateId': {
@@ -41,15 +45,52 @@ module.exports = {
             'asReverse': 'senders',
             'allowNull': true
         },
-        'receiver': {
-            'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
+        'createdAt': {
+            'type': Sequelize.BIGINT,
+            'allowNull': true
+        },
+        'updatedAt': {
+            'type': Sequelize.BIGINT,
+            'allowNull': true
+        },
+        'deletedAt': {
+            'type': Sequelize.DATE,
             'allowNull': true
         }
-
     },
     'options': {
+        'indexes': [{
+            name: 'templateId',
+            fields: ['templateId']
+        }, {
+            name: 'createdAt',
+            fields: ['createdAt']
+        }, {
+            name: 'deletedAt',
+            fields: ['deletedAt']
+        }],
         'charset': CONFIG.db.charset,
-        'classMethods': Sequelize.Utils._.extend(mixin.options.classMethods, {
+        'collate': CONFIG.db.collate,
+        'timestamps': true,
+        'createdAt': false,
+        'updatedAt': false,
+        'paranoid': true,
+        'hooks': {
+            'beforeCreate': mixin.options.hooks.microCreatedAt,
+            'beforeBulkUpdate': mixin.options.hooks.useIndividualHooks,
+            'beforeUpdate': mixin.options.hooks.microUpdatedAt
+        },
+        'instanceMethods': Sequelize.Utils._.extend(mixin.options.instanceMethods, {}),
+        'classMethods': Sequelize.Utils._.extend({
+            'getIncludeSender': function () {
+                return [{
+                    model: sequelize.models.AppTemplate,
+                    as: 'template'
+                }, {
+                    model: sequelize.models.AppReceiver,
+                    as: 'receivers'
+                }]
+            },
             'createSender': function(body, callback) {
                 let createdData = null;     //res로 반환할 데이터
                 sequelize.models.AppSender.create(body).then((data) => {
@@ -99,8 +140,26 @@ module.exports = {
                         callback(204);
                     }
                 });
+            },
+            'sendQueue': function (callback) {
+                if (isSending) {
+                    return callback(400);
+                } else {
+                    isSending = true;
+                }
+
+
+
+                var funcs = [];
+
+                fucns.push();
+
+                async.series(funcs, function (error, results) {
+                    isSending = false;
+
+                });
             }
-        })
+        }, mixin.options.classMethods)
     }
 };
 

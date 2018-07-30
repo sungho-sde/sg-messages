@@ -6,7 +6,6 @@ var logger = new Logger(__filename);
 post.validate = function () {
     return function (req, res, next) {
         let COMMON = req.meta.std.common;
-        // req.check('id', '400_12').isInt();
 
         if (req.body.title !== undefined) {
             req.check('title','400_8').len(COMMON.minLength, COMMON.maxLength);

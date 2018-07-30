@@ -88,12 +88,21 @@ api = {
         return function (req, res, next) {
 
             var params = {
-                acceptable: ['title', 'body'],
-                essential: [],
+                acceptable: [
+                    'title',
+                    'body',
+                    'url'
+                ],
+                essential: [
+                    'title',
+                    'body',
+                    'url'
+                ],
                 resettable: [],
                 explains: {
                     'title': '타이틀',
-                    'body': '바디'
+                    'body': '바디',
+                    'url': 'url'
                 },
                 param: '',
                 title: '메세지 템플릿 생성',
@@ -125,12 +134,17 @@ api = {
         return function (req, res, next) {
 
             var params = {
-                acceptable: ['title', 'body'],
+                acceptable: [
+                    'title',
+                    'body',
+                    'url'
+                ],
                 essential: [],
                 resettable: ['title', 'body'],
                 explains: {
                     'title': '타이틀',
-                    'body': '바디'
+                    'body': '바디',
+                    'url': 'urls'
                 },
                 title: '메세지 템플릿 수정',
                 param: 'id',

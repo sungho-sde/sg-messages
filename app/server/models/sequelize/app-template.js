@@ -19,6 +19,7 @@ var errorHandler = require('sg-sequelize-error-handler');
 var STD = require('../../../../bridge/metadata/standards');
 var coreUtils = require("../../../../core/server/utils");
 var CONFIG = require('../../../../bridge/config/env');
+var getDBStringLength = coreUtils.initialization.getDBStringLength;
 
 module.exports = {
     'fields': {
@@ -30,18 +31,65 @@ module.exports = {
         //     'allowNull': true
         // },
         'title': {
-            'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
+            'type': Sequelize.STRING(getDBStringLength()),
             'allowNull': false,
             'defaultValue': 'default title'
-        },
+        },                                                                            
         'body': {
-            'type': Sequelize.STRING(coreUtils.initialization.getDBStringLength()),
+            'type': Sequelize.STRING(getDBStringLength()),
+            'allowNull': false
+        },
+        'url': {
+            'type': Sequelize.STRING(getDBStringLength()),
             'allowNull': true
         },
+        'createdAt': {
+            'type': Sequelize.BIGINT,
+            'allowNull': true
+        },
+        'updatedAt': {                                                
+            'type': Sequelize.BIGINT,                                 
+            'allowNull': true                                         
+        },
+        'deletedAt': {
+            'type': Sequelize.DATE,
+            'allowNull': true
+        }
     },
     'options': {
+        'indexes': [{
+            name: 'title',
+            fields: ['title']
+        }, {
+            name: 'body',
+            fields: ['body']
+        }, {
+            name: 'url',
+            fields: ['url']
+        }, {
+            name: 'createdAt',
+            fields: ['createdAt']
+        }, {
+            name: 'updatedAt',
+            fields: ['updatedAt']
+        }, {
+            name: 'deletedAt',
+            fields: ['deletedAt']
+        },
+        ],
         'charset': CONFIG.db.charset,
-        'classMethods': Sequelize.Utils._.extend(mixin.options.classMethods, {
+        'collate': CONFIG.db.collate,
+        'timestamps': true,
+        'createdAt': false,
+        'updatedAt': false,
+        'paranoid': true,
+        'hooks': {
+            'beforeCreate': mixin.options.hooks.microCreatedAt,
+            'beforeBulkUpdate': mixin.options.hooks.useIndividualHooks,
+            'beforeUpdate': mixin.options.hooks.microUpdatedAt
+        },
+        'instanceMethods': Sequelize.Utils._.extend(mixin.options.instanceMethods, {}),
+        'classMethods': Sequelize.Utils._.extend({
             'createTemplate': function(body, callback) {
                 let createdData = null;     //res로 반환할 데이터
                 sequelize.models.AppTemplate.create(body).then((data) => {
@@ -96,7 +144,7 @@ module.exports = {
                     }
                 });
             }
-        })
+        },mixin.options.classMethods)
     }
 };
 

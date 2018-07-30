@@ -1,15 +1,16 @@
 var post = {};
 var Logger = require('sg-logger');
 var logger = new Logger(__filename);
-var COMMONAPP = require('../../../config/env/common');
 var async = require('async');
 
 post.validate = function () {
     return function (req, res, next) {
         let COMMON = req.meta.std.common;
+        console.log('\n body : ',req.body);
 
-        req.check('senderId','400_8').len(COMMON.minLength, COMMON.maxLength);
+        req.check('sender','400_8').len(COMMON.minLength, COMMON.maxLength);
         req.check('templateId','400_8').len(COMMON.minLength, COMMON.maxLength);
+
         req.utils.common.toArray(req.body, 'receivers');
 
         req.utils.common.checkError(req, res, next);
@@ -25,12 +26,15 @@ post.setParam = function () {
             });
         });
         req.body.receivers = receivers;
-
         var include = req.models.AppSender.getIncludeSender();
-        req.models.AppSender.createDataIncluding(req.body, include, function (status, data) {
+        console.log('\n include : ',include);
+        console.log('\n body : ',req.body);
+
+        req.models.AppSender.createDataIncluding(req.body, include, (status, data) => {
             if (status == 201) {
                 data.reload().then(function (data) {
                     req.data = data;
+                    console.log('\n\n createDataIncluding : ',data.dataValues);
                     next();
                 });
             } else {
@@ -41,40 +45,10 @@ post.setParam = function () {
 };
 
 
-//
-// post.setParam = function () {
-//     return function (req, res, next) {
-//         req.models.AppSender.createSender(req.body, (status, data) => {
-//             if (status == 201) {
-//                 req.data = data;
-//                 next();
-//             } else {
-//                 return res.hjson(req, next, status, data);
-//             }
-//         });
-//     };
-// };
-//
-// post.getTemplateBody = function () {
-//     return function (req, res, next) {
-//         req.models.AppTemplate.findOne({
-//             where: {
-//                 id: req.data.templateId
-//             }
-//         }).then((data) => {
-//             if (data) {
-//                 req.data.template = data.dataValues;
-//                 next();
-//             } else {
-//                 return res.hjson(req, next, 404, data)
-//             }
-//         })
-//     }
-// }
 
 post.sendMessage = function() {
     return function (req, res, next) {
-        var sender = COMMONAPP.sender.apiStoreSMS.from;
+        var sender = req.config.sender.apiStoreSMS.from;
         var message = req.data.template.body;
         var NOTIFICATION_UTIL = req.appUtils.notification;
 
@@ -83,6 +57,9 @@ post.sendMessage = function() {
         for (var i=0; i<req.data.receivers.length; i++) {
             (function (receiver) {
                 funcs.push(function (subCallback) {
+                    // console.log('\n\n RECEIVER : ', receiver);
+                    // subCallback(null, true);
+
                     NOTIFICATION_UTIL.sendSms(req, sender, receiver, message, function(status, data){
                         console.log('After NOTIFICATION : \n',status, data);
                         if (status == 200){
@@ -101,7 +78,7 @@ post.sendMessage = function() {
 
         next();
 
-        async.series(funcs, function (error, results) {
+        async.series(funcs, (error, results) => {
 
             if (error) {
                 console.error(error.status, error.data);
@@ -142,3 +119,47 @@ post.supplement = function () {
 };
 
 module.exports = post;
+
+
+//
+// post.setParam = function () {
+//     return function (req, res, next) {
+//         req.models.AppSender.createSender(req.body, (status, data) => {
+//             if (status == 201) {
+//                 req.data = data;
+//                 next();
+//             } else {
+//                 return res.hjson(req, next, status, data);
+//             }
+//         });
+//     };
+// };
+//
+// post.getTemplateBody = function () {
+//     return function (req, res, next) {
+//         req.models.AppTemplate.findOne({
+//             where: {
+//                 id: req.data.templateId
+//             }
+//         }).then((data) => {
+//             if (data) {
+//                 req.data.template = data.dataValues;
+//                 next();
+//             } else {
+//                 return res.hjson(req, next, 404, data)
+//             }
+//         })
+//     }
+// }
+// post.getTemplateBody = function () {
+//     return function (req, res, next) {
+//         req.models.AppTemplate.findDataById(req.body.templateId, (status, data) => {
+//             if (status == 200) {
+//                 req.body.template = data;
+//                 next();
+//             } else {
+//                 return res.hjson(req, next, status, data);
+//             }
+//         });
+//     }
+// }

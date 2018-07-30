@@ -87,18 +87,17 @@ api = {
 
             var params = {
                 acceptable: [
-                    'senderId',
+                    'sender',
                     'templateId',
-                    'receiver'
+                    'receivers'
                 ],
                 essential: [
-                    'senderId',
                     'templateId',
-                    'receiver'
+                    'receivers'
                 ],
                 resettable: [],
                 explains: {
-                    'senderId': 'senderId',
+                    'sender': 'sender',
                     'templateId': 'templateId',
                     'receivers': 'receivers (,)로 구분'
                 },
@@ -116,11 +115,10 @@ api = {
                     params.resettable
                 ));
                 apiCreator.add(post.validate());
+                // apiCreator.add(post.getTemplateBody());
                 apiCreator.add(post.setParam());
-                apiCreator.add(post.getTemplateBody());
                 apiCreator.add(post.sendMessage());
                 // apiCreator.add(post.setSenderHistory());
-                // apiCreator.add(post.supplement());
                 apiCreator.add(post.supplement());
                 apiCreator.run();
 

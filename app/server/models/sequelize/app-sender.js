@@ -12,6 +12,9 @@
 
 var Sequelize = require('sequelize');
 var sequelize = require('../../../../core/server/config/sequelize');
+var async = require('async');
+var OBJECTIFY = require('../../../../core/server/utils/objectify');
+
 
 var mixin = require('../../../../core/server/models/sequelize/mixin');
 var errorHandler = require('sg-sequelize-error-handler');
@@ -41,9 +44,9 @@ module.exports = {
         'templateId': {
             'reference': 'AppTemplate',
             'referenceKey': 'id',
-            'as': 'Template',
+            'as': 'template',
             'asReverse': 'senders',
-            'allowNull': true
+            'allowNull': false
         },
         'createdAt': {
             'type': Sequelize.BIGINT,
@@ -60,6 +63,9 @@ module.exports = {
     },
     'options': {
         'indexes': [{
+            name: 'sender',
+            fields: ['sender']
+        }, {
             name: 'templateId',
             fields: ['templateId']
         }, {
@@ -83,14 +89,18 @@ module.exports = {
         'instanceMethods': Sequelize.Utils._.extend(mixin.options.instanceMethods, {}),
         'classMethods': Sequelize.Utils._.extend({
             'getIncludeSender': function () {
-                return [{
-                    model: sequelize.models.AppTemplate,
-                    as: 'template'
-                }, {
+                return [
+                    {
                     model: sequelize.models.AppReceiver,
                     as: 'receivers'
-                }]
-            },
+                },
+                {
+                    model: sequelize.models.AppTemplate,
+                    as: 'template'
+                }
+                ]
+            }
+            ,
             'createSender': function(body, callback) {
                 let createdData = null;     //res로 반환할 데이터
                 sequelize.models.AppSender.create(body).then((data) => {
@@ -148,16 +158,167 @@ module.exports = {
                     isSending = true;
                 }
 
-
-
                 var funcs = [];
+                var messageData = null;
+                var senderId = null;
+                var sendCount = null;
+                var successCount = null;
 
-                fucns.push();
+                funcs.push(function (subCallback){
+                    findUncompletedSender(subCallback);
+                });
+                funcs.push(function (subCallback){
+                    sendMessage(subCallback);
+                });
+                funcs.push(function (subCallback){
+                    updateSenderDeletedAt(subCallback);
+                });
+                funcs.push(function (subCallback){
+                    addSenderHistory(subCallback);
+                });
+
+                funcs.push();
 
                 async.series(funcs, function (error, results) {
                     isSending = false;
+                    if (error) {
+                        callback(error.status, error.data);
+                    } else {
+                        callback(204);
+                    }
 
                 });
+
+
+                function findUncompletedSender(subCallback){
+                    var query = 'SELECT sender.id, template.body, template.url';
+                    query += ' FROM AppSenders As sender';
+                    query += ' LEFT JOIN AppSenderHistories As senderHistory';
+                    query += ' ON sender.id = senderHistory.senderId';
+
+                    // query += ' LEFT JOIN AppReceivers As receiver';
+                    // query += ' ON sender.id = receiver.senderId';
+
+                    query += ' LEFT JOIN AppTemplates As template';
+                    query += ' ON sender.templateId = template.id';
+
+                    query += ' WHERE sender.deletedAt IS NULL';
+                    query += ' AND senderHistory.id IS NULL';
+
+                    query += ' ORDER BY sender.id ASC LIMIT 2';
+                    sequelize.query(query, {
+                        type: Sequelize.QueryTypes.SELECT
+                    }).then(data=>{
+                        console.log('FindSender Select data :',data);
+                        messageData = data;
+                        senderId = messageData[0].id
+                        return true;
+                    }).catch(errorHandler.catchCallback(function (status, data) {
+                        console.log(status, data);
+                        subCallback({
+                            status: status,
+                            data: data
+                        }, false);
+                    })).done(function (isSuccess) {
+                        if (isSuccess) {
+                            subCallback(null, true);
+                        } else {
+                            subCallback({
+                                status: 404,
+                                data: {}
+                            }, false);
+                        }
+                    });
+                }
+
+                function sendMessage(subCallback){
+                    var query = 'SELECT receivers.receiver FROM AppReceivers As receivers';
+                    query += ' INNER JOIN AppSenders As senders';
+                    query += ' ON receivers.senderId = senders.id';
+                    query += ' WHERE senders.id = ' + senderId;
+                    sequelize.query(query, {
+                        type: Sequelize.QueryTypes.SELECT
+                    }).then(data=>{
+                        console.log('SendMessage Select data :',data);
+                        sendCount = data.length;
+                        console.log('SendMessage Select data length :',data.length);
+
+                        //Send Messages
+
+                        return true;
+                    }).catch(errorHandler.catchCallback(function (status, data) {
+                        console.log(status, data);
+                        subCallback({
+                            status: status,
+                            data: data
+                        }, false);
+                    })).done(function (isSuccess) {
+                        if (isSuccess) {
+                            subCallback(null, true);
+                        } else {
+                            subCallback({
+                                status: 404,
+                                data: {}
+                            }, false);
+                        }
+                    });
+                }
+
+                function updateSenderDeletedAt(subCallback){
+                    var query = 'UPDATE AppSenders As sender';
+                    query += ' SET sender.deletedAt = NOW()';
+                    query += ' WHERE sender.id = ' + senderId;
+                    sequelize.query(query, {
+                        type: Sequelize.QueryTypes.UPDATE
+                    }).then(()=>{
+                        return true;
+                    }).catch(errorHandler.catchCallback(function (status, data) {
+                        console.log(status, data);
+                        subCallback({
+                            status: status,
+                            data: data
+                        }, false);
+                    })).done(function (isSuccess) {
+                        if (isSuccess) {
+                            subCallback(null, true);
+                        } else {
+                            subCallback({
+                                status: 404,
+                                data: {}
+                            }, false);
+                        }
+                    });
+                }
+
+                function addSenderHistory(subCallback){
+                    console.log('addSenderHistory init');
+                    sequelize.models.AppSenderHistory.create({
+                            'senderId': messageData[0].id,
+                            'sendCount': sendCount,
+                            'successCount': sendCount //successCount
+                        }
+                    ).then((data) => {
+                        console.log('addSenderHistoryData : ', data);
+                        return true;
+                    }).catch(errorHandler.catchCallback(function (status, data) {
+                        console.log(status, data);
+                        subCallback({
+                            status: status,
+                            data: data
+                        }, false);
+                    })).done(function (isSuccess) {
+                        if (isSuccess) {
+                            subCallback(null, true);
+                        } else {
+                            subCallback({
+                                status: 404,
+                                data: {}
+                            }, false);
+                        }
+                    });
+
+                }
+
             }
         }, mixin.options.classMethods)
     }

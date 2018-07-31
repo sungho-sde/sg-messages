@@ -37,10 +37,46 @@ module.exports = {
         'successCount': {
             'type': Sequelize.INTEGER,
             'allowNull': true
+        },
+        'createdAt': {
+            'type': Sequelize.BIGINT,
+            'allowNull': true
+        },
+        'updatedAt': {
+            'type': Sequelize.BIGINT,
+            'allowNull': true
+        },
+        'deletedAt': {
+            'type': Sequelize.DATE,
+            'allowNull': true
         }
     },
     'options': {
+        'indexes': [{
+            name: 'senderId',
+            fields: ['senderId']
+        }, {
+            name: 'sendCount',
+            fields: ['sendCount']
+        }, {
+            name: 'successCount',
+            fields: ['successCount']
+        }, {
+            name: 'deletedAt',
+            fields: ['deletedAt']
+        }],
         'charset': CONFIG.db.charset,
+        'collate': CONFIG.db.collate,
+        'timestamps': true,
+        'createdAt': false,
+        'updatedAt': false,
+        'paranoid': true,
+        'hooks': {
+            'beforeCreate': mixin.options.hooks.microCreatedAt,
+            'beforeBulkUpdate': mixin.options.hooks.useIndividualHooks,
+            'beforeUpdate': mixin.options.hooks.microUpdatedAt
+        },
+        'instanceMethods': Sequelize.Utils._.extend(mixin.options.instanceMethods, {}),
         'classMethods': Sequelize.Utils._.extend(mixin.options.classMethods, {
             'createSenderHistory': function(body, callback) {
                 let createdData = null;     //res로 반환할 데이터

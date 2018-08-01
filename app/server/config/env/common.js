@@ -42,6 +42,11 @@ module.exports = {
         clientSecret: '',
         callbackURL: appRootUrl + '/oauth/google/callback'
     },
+    googleApi: {
+        shorten: {
+            key: "AIzaSyD4DXeAe32gv4SZgWRrFQgdKSsx-_fGYMM"
+        }
+    },
     aws: {
         "accessKeyId": "",
         "secretAccessKey": "",

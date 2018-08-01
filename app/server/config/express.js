@@ -48,4 +48,6 @@ module.exports = function (app) {
         next();
     });
 
+    utils.scheduler.run();
+
 };

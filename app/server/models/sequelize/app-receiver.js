@@ -29,7 +29,7 @@ module.exports = {
             'referenceKey': 'id',
             'as': 'sender',
             'asReverse': 'receivers',
-            'allowNull': false
+            'allowNull': true
         },
         'receiver': {
             'type': Sequelize.STRING(getDBStringLength()),

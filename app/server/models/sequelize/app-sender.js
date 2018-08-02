@@ -15,6 +15,7 @@ var sequelize = require('../../../../core/server/config/sequelize');
 var async = require('async');
 var OBJECTIFY = require('../../../../core/server/utils/objectify');
 
+var NOTIFICATION_UTIL = require('../../utils/notification');
 
 var mixin = require('../../../../core/server/models/sequelize/mixin');
 var errorHandler = require('sg-sequelize-error-handler');
@@ -22,6 +23,7 @@ var errorHandler = require('sg-sequelize-error-handler');
 var STD = require('../../../../bridge/metadata/standards');
 var coreUtils = require("../../../../core/server/utils");
 var CONFIG = require('../../../../bridge/config/env');
+var sendNoti = require('sg-sender').getSender(CONFIG.sender);
 
 var getDBStringLength = coreUtils.initialization.getDBStringLength;
 
@@ -153,16 +155,16 @@ module.exports = {
             },
             'sendQueue': function (callback) {
                 if (isSending) {
-                    return callback(400);
+                    return callback(200, "another message is sending");
                 } else {
                     isSending = true;
                 }
 
                 var funcs = [];
-                var messageData = null;
+                var msgData = null;
                 var senderId = null;
                 var sendCount = null;
-                var successCount = null;
+                var successCount = 0;
 
                 funcs.push(function (subCallback){
                     findUncompletedSender(subCallback);
@@ -205,13 +207,13 @@ module.exports = {
                     query += ' WHERE sender.deletedAt IS NULL';
                     query += ' AND senderHistory.id IS NULL';
 
-                    query += ' ORDER BY sender.id ASC LIMIT 2';
+                    query += ' ORDER BY sender.id ASC LIMIT 1';
                     sequelize.query(query, {
                         type: Sequelize.QueryTypes.SELECT
                     }).then(data=>{
-                        console.log('FindSender Select data :',data);
-                        messageData = data;
-                        senderId = messageData[0].id
+                        msgData = data.pop();
+                        senderId = msgData.id
+                        console.log('Sender data :',msgData);
                         return true;
                     }).catch(errorHandler.catchCallback(function (status, data) {
                         console.log(status, data);
@@ -239,12 +241,16 @@ module.exports = {
                     sequelize.query(query, {
                         type: Sequelize.QueryTypes.SELECT
                     }).then(data=>{
-                        console.log('SendMessage Select data :',data);
                         sendCount = data.length;
-                        console.log('SendMessage Select data length :',data.length);
 
-                        //Send Messages
-
+                        data.forEach((receiver)=>{
+                            console.log('receiver : ', receiver.receiver);
+                            if (receiver.receiver != STD.notification.wrongPhoneNum) {
+                                // NOTIFICATION_UTIL.sms.sendShortUrl(receiver.receiver,msgData.url,msgData.body,()=>{
+                                // })
+                                (function(){successCount++;})()
+                            }
+                        })
                         return true;
                     }).catch(errorHandler.catchCallback(function (status, data) {
                         console.log(status, data);
@@ -291,14 +297,13 @@ module.exports = {
                 }
 
                 function addSenderHistory(subCallback){
-                    console.log('addSenderHistory init');
                     sequelize.models.AppSenderHistory.create({
-                            'senderId': messageData[0].id,
+                            'senderId': senderId,
                             'sendCount': sendCount,
-                            'successCount': sendCount //successCount
+                            'successCount': successCount
                         }
-                    ).then((data) => {
-                        console.log('addSenderHistoryData : ', data);
+                    ).then(() => {
+                        console.log('addSenderHistory (senderId,sendCount,successCount): ', senderId, sendCount, successCount);
                         return true;
                     }).catch(errorHandler.catchCallback(function (status, data) {
                         console.log(status, data);

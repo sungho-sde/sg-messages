@@ -114,7 +114,7 @@ api = {
                     params.essential,
                     params.resettable
                 ));
-                apiCreator.add(post.validate());
+                apiCreator.add(post.validate()); 
                 apiCreator.add(post.setParam());
                 apiCreator.add(post.supplement());
                 apiCreator.run();

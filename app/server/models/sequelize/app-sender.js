@@ -244,10 +244,11 @@ module.exports = {
                         sendCount = data.length;
 
                         data.forEach((receiver)=>{
+                            receiver.receiver = coreUtils.notification.massNotification.parse.message(receiver.receiver);
                             console.log('receiver : ', receiver.receiver);
                             if (receiver.receiver != STD.notification.wrongPhoneNum) {
-                                // NOTIFICATION_UTIL.sms.sendShortUrl(receiver.receiver,msgData.url,msgData.body,()=>{
-                                // })
+                                NOTIFICATION_UTIL.sms.sendShortUrl(receiver.receiver,msgData.url,msgData.body,()=>{
+                                })
                                 (function(){successCount++;})()
                             }
                         })
